@@ -31,7 +31,7 @@ import com.rails.ecommerce.core.common.domain.TrainNumberView;
 import com.rails.ecommerce.core.student.domain.StudentInfo;
 import com.rails.ecommerce.core.student.service.StudentService;
 
-@RequestMapping(value = "/student-test")
+@RequestMapping(value = "/student")
 @Controller
 public class StudentController {
 
