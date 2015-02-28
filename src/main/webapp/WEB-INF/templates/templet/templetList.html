@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<script th:include="layout/common :: common-header" th:remove="tag"></script>
+	<script type="text/javascript" th:src="${#httpServletRequest.contextPath+'/resources/js/lib/page/page.js'}"></script>
+<script type="text/javascript" th:src="${#httpServletRequest.contextPath+'/resources/js/templet/templetList.js'}"></script>
+</head>
+<body>
+<div class="easyui-panel" title="查询条件" style="width:100%;">
+  <div style="padding:5px 20px 5px 50px;">
+<form id="f1" method="post">
+<table cellpadding="5" >
+<tr>
+<!--  
+<td>总公司:<input class="easyui-textbox" type="text" name="name" style="width: 60px" ></input></td>-->
+<td>组织机构:
+<input id="organization" name="organization" data-options="min:0,max:1000,editable:false" style="width:150px;disabled:false"></input>
+</td>
+<td>创建日期:
+<input class="easyui-datebox" name="beginDate" id="beginDate"></input>
+<input class="easyui-datebox" name="endDate" id="endDate"></input>
+</td><td><div style="text-align:right;padding:5px;margin-right: 0px">
+<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" id="queryBtn" name="queryBtn">查询</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-clear" onclick="clearForm()">清空</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" id="add" >新增</a>
+</div></td>
+</tr>
+</table>
+</form>
+</div>
+</div>
+<div style="width:100%;margin-top:6px"></div>
+<div class="easyui-panel"   title="模板套装列表" style="width:100%;">
+<table id="table" border="0" cellpadding="2" cellspacing="0" toolbar="#tb" style="width: 100%;"></table>
+</div>
+
+
+<!-- area 2:list add new dialog-->
+	<div id="dlgadd" class="easyui-dialog" title="模板套装添加"
+		style="width: 400px; height: 310px; padding: 0px; padding-left: 30px; align: center">
+		
+	
+		<!-- content begin -->
+		<div id="loga" style="padding: 10px"></div>
+<form id="ff" method="post">
+<table cellpadding="5">
+
+<tr>
+<td>模板套装名称:</td>
+<td>
+<input class="easyui-textbox" id="templetListName" name="templetListName" data-options="required:true,validType:['length[0,100]']"  missingMessage="该信息不能为空"></input>
+</td>
+</tr>
+<tr>
+<td>套装类型:</td>
+<td>
+<select panelHeight="50"  class="easyui-combobox" style="width:150px"  id="templetListType" name="templetListType"  required="required" data-options="min:0,max:1000,editable:false"><option value="1">栏目列表类型</option><option value="2">商品列表类型</option></select>
+</td>
+</tr>
+<tr>
+<td>模板描述:</td>
+<td><input class="easyui-textbox" id="descript" name="descript" data-options="multiline:true,validType:['length[0,1000]']" style="height:60px"></input></td>
+</tr>
+<tr>
+<td>所属部门:</td>
+<td>
+<input  id="userOrganization" name="userOrganization"  panelHeight="50"  required="required"  data-options="min:0,max:1000,editable:false" style="width:150px;disabled:false;h"></input></td>
+</tr>
+<!--  
+<tr>
+<td>保存路径:</td>
+<td>
+<input  panelHeight="70" id="templetListUrl"   class="easyui-textbox"  name="templetListUrl"  required="required" data-options="min:0,max:1000,validType:['length[0,100000]']" missingMessage="该信息不能为空"></input></td>
+</tr>
+-->
+</table>
+<input type="hidden" name="keyid" id="keyid" ></input> 
+<input type="hidden" name="createDate" id="createDate" ></input> 
+<input type="hidden" name="rowIndex" id="rowIndex" value=""></input> 
+</form>
+
+		<div style="text-align:center;padding:5px">
+<a href="javascript:void(0)" id="sub" iconCls="icon-ok" class="easyui-linkbutton" >提交</a>
+<a href="javascript:void(0)" iconCls="icon-clear"  class="easyui-linkbutton" onclick="clearFf()">清空</a>
+</div>
+</div>
+
+
+<script>
+function submitForm(){
+$('#ff').form('submit');
+}
+function clearForm(){
+$('#f1').form('clear');
+}
+
+function clearFf(){
+$('#ff').form('clear');
+	}
+</script>
+
+</body>
+</html>

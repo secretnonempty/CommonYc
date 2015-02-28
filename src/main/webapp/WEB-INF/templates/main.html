@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script th:include="layout/common :: common-header" th:remove="tag"></script>
+	<link rel="stylesheet" type="text/css" th:href="${#httpServletRequest.contextPath+'/resources/css/lib/jquery-easyui-1.4/themes/demo.css'}"></link>
+	<link rel="stylesheet" type="text/css" th:href="${#httpServletRequest.contextPath+'/resources/css/default.css'}"></link>
+	<link rel="stylesheet" type="text/css" th:href="${#httpServletRequest.contextPath+'/resources/css/lib/jquery-easyui-1.4/themes/icon.css'}"></link>
+	<link rel="stylesheet" type="text/css" th:href="${#httpServletRequest.contextPath+'/resources/css/lib/jquery-easyui-1.4/themes/default/easyui.css'}"></link>
+	<script type="text/javascript" th:src="${#httpServletRequest.contextPath+'/resources/js/lib/page/page.js'}" ></script>
+	<script type="text/javascript" th:src="${#httpServletRequest.contextPath+'/resources/js/lib/page/menu.js'}" ></script>
+	<script type="text/javascript" th:src="${#httpServletRequest.contextPath+'/resources/js/lib/page/outlook.js'}" ></script>
+	<script type="text/javascript" th:src="${#httpServletRequest.contextPath+'/resources/js/lib/layer-v1.8.5/layer/layer.min.js'}" ></script>
+	<style>
+		#css3menu li{ float:left; list-style-type:none;}
+		#css3menu li a{	color:#fff; padding-right:20px;}
+		#css3menu li a.active{color:yellow;}
+	</style>
+</head>
+<body class="easyui-layout" style="overflow-y: hidden"  scroll="no">
+
+<!-- 
+<noscript>
+<div style=" position:absolute; z-index:100000; height:2046px;top:0px;left:0px; width:100%; background:white; text-align:center;">
+    <img src="images/noscript.gif" alt='抱歉，请开启脚本支持！' />
+</div>
+</noscript>
+ -->
+
+    <div region="north" split="true" border="false" style="overflow: hidden; height: 60px;
+        background: url(images/bar.jpg) #7f99be repeat-x center 50%;
+        line-height: 20px;color: #fff; font-family: Verdana, 微软雅黑,黑体;margin-bottom: 0px;text-align: center;">
+        
+        <span style="float:right; padding-right:20px;" class="head">欢迎  <shiro:principal/> <a href="#" id="editpass">修改密码</a> <a href="../admin/logout" id="loginOut">安全退出</a></span>
+
+    <!--   <span style="padding-left:10px; font-size: 16px; float:left;"><img src="images/blocks.gif" width="20" height="20" align="absmiddle" /> </span> -->  
+		
+		 <ul id="css3menu" style="padding:0px; margin:0px;list-type:none; float:left; margin-left:40px;">
+				<!--   <li ><a class="active" name="basic" href="javascript:;" title="基础数据">基础数据</a></li>
+				<li><a name="point" href="javascript:;" title="积分管理">资产管理</a></li> 
+		-->
+			</ul>
+    </div>
+    <div region="south" split="true" style="height: 30px; background: #D2E0F2; ">
+        <div class="footer">列车电商管理平台 v1.0</div>
+    </div>
+    <div region="west" hide="true" split="true" title="导航菜单" style="width:180px;" id="west">
+<div id='wnav' class="easyui-accordion" fit="true" border="false">
+		<!--  导航内容 -->
+		
+				
+			</div>
+
+    </div>
+    <div id="mainPanle" region="center" style="background: #eee; overflow-y:hidden">
+ 
+	    <div id="tabs" class="easyui-tabs"  fit="true" border="false" >
+			<div title="欢迎使用" style="padding:20px;overflow:hidden;" id="home">
+				
+			<div style="width: 640px;height: 480px;margin-left: auto;margin-right: auto;background: url(images/mainWelcome.jpg)"></div>
+
+			</div>
+		</div>
+
+    </div>
+    
+    
+    <!--修改密码窗口-->
+    <div id="w" class="easyui-window" title="修改密码" collapsible="false" minimizable="false"
+        maximizable="false" icon="icon-save"  style="width: 300px; height: 150px; padding: 5px;
+        background: #fafafa;">
+        <div class="easyui-layout" fit="true">
+            <div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc;">
+                <table cellpadding="3">
+                    <tr>
+                        <td>新密码：</td>
+                        <td><input id="txtNewPass" type="Password" class="txt01" /></td>
+                    </tr>
+                    <tr>
+                        <td>确认密码：</td>
+                        <td><input id="txtRePass" type="Password" class="txt01" /></td>
+                    </tr>
+                </table>
+            </div>
+            <div region="south" border="false" style="text-align: right; height: 30px; line-height: 30px;">
+                <a id="btnEp" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)" >
+                    确定</a> <a id="btnCancel" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">取消</a>
+            </div>
+        </div>
+    </div>
+    
+    
+
+	<div id="mm" class="easyui-menu" style="width:150px;">
+		<div id="mm-tabupdate">刷新</div>
+		<div class="menu-sep"></div>
+		<div id="mm-tabclose">关闭</div>
+		<div id="mm-tabcloseall">全部关闭</div>
+		<div id="mm-tabcloseother">除此之外全部关闭</div>
+		<div class="menu-sep"></div>
+		<div id="mm-tabcloseright">当前页右侧全部关闭</div>
+		<div id="mm-tabcloseleft">当前页左侧全部关闭</div>
+		<div class="menu-sep"></div>
+		<div id="mm-exit">退出</div>
+	</div>
+
+
+</body>
+</html>

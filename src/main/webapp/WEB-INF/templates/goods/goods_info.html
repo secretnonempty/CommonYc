@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script th:include="layout/common :: common-header" th:remove="tag"></script>
+	<link rel="stylesheet" type="text/css" href="../demo.css" th:href="${#httpServletRequest.contextPath+'/resources/css/lib/jquery-easyui-1.4/themes/demo.css'}"></link>
+	<link rel="stylesheet" type="text/css" href="../demo.css" th:href="${#httpServletRequest.contextPath+'/resources/css/lib/jquery-easyui-1.4/themes/icon.css'}"></link>
+	<script type="text/javascript" src="js/lib/page/page.js" th:src="${#httpServletRequest.contextPath+'/resources/js/lib/page/page.js'}" ></script>
+	<script type="text/javascript" src="js/goods/goods_info.js" th:src="${#httpServletRequest.contextPath+'/resources/js/goods/goods_info.js'}" ></script>
+</head>
+<body>
+ 
+	<div class="easyui-panel" title="查询条件" style="width:100%;">
+	  <div style="padding:10px 60px 20px 60px">
+	<form id="f1" method="post">
+		<table cellpadding="5">
+				<tr>
+				<td>商品名称:<input class="easyui-textbox" type="text" id="goodsTitle" style="width: 160px" ></input></td>
+				<td>状态:
+					<select class="easyui-combobox" name="language" id="state"><option value="" selected="true">请选择</option><option value="1">上架</option><option value="2">下架</option></select>
+				</td>
+
+				<td>创建日期:
+					<input class="easyui-datebox" id="beginDate"></input>
+					<input class="easyui-datebox" id="endDate"></input>
+				</td><td><div style="text-align:center;padding:5px">
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" id="queryBtn">查询</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-clear" onclick="clearForm()">重置</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" id="add">新增</a>
+				</div></td>
+				</tr>
+		</table>
+	</form>
+	</div>
+	</div>
+	<script>
+	function clearForm(){
+	$('#f1').form('clear');
+	$("#state").combobox('setValue',"");//根据ID设定默认值
+	}
+	</script>
+    
+	<div style="width:100%;margin-top:6px"></div>
+	<div class="easyui-panel" title="商品列表" style="width:100%;">
+		<table id="table"  border="0" cellpadding="2" cellspacing="0" style="padding:10px 60px 20px 60px;width:100%"></table>
+	</div>
+
+</body>
+</html>

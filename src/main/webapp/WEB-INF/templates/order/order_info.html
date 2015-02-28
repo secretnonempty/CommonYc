@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script th:include="layout/common :: common-header" th:remove="tag"></script>
+	<link rel="stylesheet" type="text/css" href="../demo.css" th:href="${#httpServletRequest.contextPath+'/resources/css/lib/jquery-easyui-1.4/themes/demo.css'}"></link>
+	<link rel="stylesheet" type="text/css" href="../demo.css" th:href="${#httpServletRequest.contextPath+'/resources/css/lib/jquery-easyui-1.4/themes/icon.css'}"></link>
+	<script type="text/javascript" src="js/lib/page/page.js" th:src="${#httpServletRequest.contextPath+'/resources/js/lib/page/page.js'}" ></script>
+	<script type="text/javascript" src="js/order/order_info.js" th:src="${#httpServletRequest.contextPath+'/resources/js/order/order_info.js'}" ></script>
+</head>
+<body>
+    <div class="easyui-panel" title="查询条件" style="width:100%;">
+	  <div style="padding:5px 20px 5px 50px">
+		<form id="ff" method="post">
+			<table cellpadding="5">
+				<tr>
+					<td style="text-align : right;">组织机构:</td>
+					<td>
+						<input id="organization" name="organization" data-options="min:0,max:1000,editable:false" style="width:150px;disabled:false"></input>
+					</td>
+					<td style="text-align : right;">&nbsp;&nbsp;车次:</td>
+					<td>
+						<select class="easyui-combobox" id="trainNo" data-options="valueField:'trainNumber',textField:'trainNumber'" name="language" style="width: 90px">
+						</select>
+					</td>
+					<td style="text-align : right;">&nbsp;&nbsp;订单日期:</td>
+					<td>
+						<input class="easyui-datebox" id="beginDate"></input>&nbsp;&nbsp;至
+					</td>
+					<td>
+						<!-- <input class="easyui-datebox" id="endDate" required="required"></input> -->
+						<input class="easyui-datebox" id="endDate"></input>
+					</td>
+					<td>
+						<div style="text-align:center;padding:5px">
+							<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" id="queryBtn">查询</a>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</form>
+	  </div>
+	</div>
+	<script>
+	function submitForm(){
+	$('#ff').form('submit');
+	}
+	function clearForm(){
+	$('#ff').form('clear');
+	}
+	</script>
+    <div style="width:100%;margin-top:6px"></div>
+	<div class="easyui-panel" title="订单列表" style="width:100%;">
+		<table id="table" border="0" cellpadding="2" cellspacing="0" style="width:100%" toolbar="#tb"></table>
+	</div>
+
+</body>
+</html>

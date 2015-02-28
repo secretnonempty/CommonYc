@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script th:include="layout/common :: common-header" th:remove="tag"></script>
+		<script type="text/javascript" src="js/lib/ckeditor/ckeditor.js" th:src="${#httpServletRequest.contextPath+'/resources/js/lib/xheditor-v1.2.1/xheditor-1.2.1/xheditor-1.2.1.min.js'}" ></script>
+			<script type="text/javascript" src="js/lib/ckeditor/ckeditor.js" th:src="${#httpServletRequest.contextPath+'/resources/js/lib/xheditor-v1.2.1/xheditor-1.2.1/xheditor_lang/zh-cn.js'}" ></script>
+	<script type="text/javascript" src="../../jquery.min.js" th:src="${#httpServletRequest.contextPath+'/resources/js/lib/jquery/jquery.1.4.4.js'}"></script>
+</head>
+<body>
+<div class="easyui-panel" title="模板添加" style="width:70%;margin-left: auto;margin-right: auto;overflow:hidden;">
+  <div style="padding:10px 60px 20px 60px">
+<form id="ff" method="post">
+<table cellpadding="5">
+
+<tr>
+<td>模板名称:</td>
+<td>
+<select class="easyui-combobox" name="name"><option value="1">default</option><option value="2">index</option></select>
+</td>
+</tr>
+<tr>
+<td>模板描述:</td>
+<td><input class="easyui-textbox" name="descript" data-options="multiline:true" style="height:60px"></input></td>
+</tr>
+<tr>
+<td>保存路径:</td>
+<td>
+<select class="easyui-combobox" name="url"><option value="1">/templet/temp1</option><option value="2">/templet/temp2</option>
+</select></td>
+</tr>
+
+<tr>
+<td>模板源码:</td>
+<td><textarea id="elm1" name="elm1" class="xheditor" rows="12" cols="80" style="width: 80%"></textarea></td>
+</tr>
+
+</table>
+</form>
+<div style="text-align:center;padding:5px">
+<a href="javascript:void(0)" id="sub" class="easyui-linkbutton" >提交</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">清空</a>
+</div>
+</div>
+</div>
+<script>
+
+$(document).ready(function(){
+
+	
+	
+	  $("#sub").click(function(){
+		  $.ajax({
+		        cache: true,
+		        type: "POST",
+		        url:"save",
+		        data:$('#ff').serialize(),// 你的formid
+		        async: false,
+		        error: function(request) {
+		        	  $.messager.alert('系统提示', "添加失败!", 'info');
+		        },
+		        success: function(data) {
+			        if(data=="success"){
+		        	  $.messager.alert('系统提示', "添加成功!", 'info');
+			        }else{
+			        	 $.messager.alert('系统提示', "添加失败!", 'info');
+				        }
+		            //$("#commonLayout_appcreshi").parent().html(data);
+		        }
+		    });
+	  })
+	})
+	
+
+function clearForm(){
+$('#ff').form('clear');
+}
+
+</script>
+
+
+
+</body>
+</html>

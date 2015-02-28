@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<ehcache name="shirocache">  
+  
+   <!--  <diskStore path="java.io.tmpdir"/>   -->
+    <diskStore path="C:/Users/Administrator/Desktop/cache"/>  
+  
+  
+    <cache name="roleCache"  
+           maxElementsInMemory="300"  
+           eternal="false"  
+           timeToIdleSeconds="3600"  
+           timeToLiveSeconds="0"  
+           overflowToDisk="false" >  
+    </cache>  
+  
+    <cache name="authorizationCache"  
+           maxElementsInMemory="300"  
+           eternal="false"  
+           timeToIdleSeconds="3600"  
+           timeToLiveSeconds="0"  
+           overflowToDisk="false" >  
+    </cache>  
+  
+    <cache name="authenticationCache"  
+           maxElementsInMemory="300"  
+           eternal="false"  
+           timeToIdleSeconds="3600"  
+           timeToLiveSeconds="0"  
+           overflowToDisk="false" >  
+    </cache>  
+    
+  
+  
+  
+  
+</ehcache> 

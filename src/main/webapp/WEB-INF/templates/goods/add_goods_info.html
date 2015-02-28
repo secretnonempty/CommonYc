@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script th:include="layout/common :: common-header" th:remove="tag"></script>
+	<script type="text/javascript" src="js/lib/ajaxfileupload/ajaxfileupload.js" th:src="${#httpServletRequest.contextPath+'/resources/js/lib/ajaxfileupload/ajaxfileupload.js'}" ></script>
+	<script type="text/javascript" src="js/goods/add_goods_info.js" th:src="${#httpServletRequest.contextPath+'/resources/js/goods/add_goods_info.js'}" ></script>
+	<script type="text/javascript" src="js/lib/ckeditor/ckeditor.js" th:src="${#httpServletRequest.contextPath+'/resources/js/lib/ckeditor/ckeditor.js'}" ></script>
+	<link rel="stylesheet" type="text/css" href="../../themes/default/easyui.css" th:href="${#httpServletRequest.contextPath+'/resources/js/lib/ckeditor/samples/samples.css'}"></link>
+</head>
+<body>
+<div class="easyui-panel" title="商品添加" style="width:auto;margin-left: auto;margin-right: auto;overflow:hidden;">
+  <div style="padding:10px 60px 20px 60px">
+	<form id="ff" method="post">
+ 	<input  name="imgUrl_title" id="imgUrl_title" type="hidden" th:value="*{goodsInfo.titleImgUrl}"/>
+    <input  name="imgUrl_small" id="imgUrl_small" type="hidden" th:value="*{goodsInfo.smallImgUrl}"/> 
+    <input  name="imgUrl_img1" id="imgUrl_img1" type="hidden" th:value="*{goodsInfo.imgUrl1}"/> 
+    <input  name="imgUrl_img2" id="imgUrl_img2" type="hidden" th:value="*{goodsInfo.imgUrl2}"/> 
+    <input  name="imgUrl_img3" id="imgUrl_img3" type="hidden" value=""/> 
+    <input  name="imgUrl_img4" id="imgUrl_img4" type="hidden" value=""/> 
+    <input  name="imgUrl_img5" id="imgUrl_img5" type="hidden" value=""/>
+    <input  name="goodsInfoId" id="imgUrl_img5" type="hidden" th:value="*{goodsInfo.goodsInfoId}"/>  
+    <input  name="stateValue" id="stateValue" type="hidden" th:value="*{goodsInfo.state}"/>
+    <input  name="goodsUnitValue" id="goodsUnitValue" type="hidden" th:value="*{goodsInfo.goodsUnit}"/>
+    <input  name="createDate" id="createDate" type="hidden" th:value="*{goodsInfo.createDate}"/>  
+  <table cellpadding="5">
+          <tr>
+          <td width="75">商品名称:</td>
+          <td colspan="5"><input class="easyui-textbox" type="text" name="goodsTitle" data-options="required:true,validType:['length[0,100]']"  missingMessage="该信息不能为空" style="width:300px" th:value="*{goodsInfo.goodsTitle}"/>
+          </td>
+        </tr>
+        <tr>
+          <td>商品概述:</td>
+          <td colspan="5"><input class="easyui-textbox" name="goodsSummary" data-options="multiline:true,required:true,validType:['length[0,500]']" missingMessage="该信息不能为空" style="width:350px;height:60px" th:value="*{goodsInfo.goodsSummary}"/></td>
+        </tr>
+        <tr>
+          <td>组织机构:</td>
+          <td colspan="5">
+          </td>
+        </tr>
+        <tr>
+          <td>状态:</td>
+          <td width="180"><select class="easyui-combobox" id="state" name="state" style="width:150px">
+            <option value="1">上架</option>
+            <option value="2">下架</option>
+          </select></td>
+		  <td width="50">价格:</td>
+          <td width="268"><input class="easyui-numberbox"  data-options="required:true,min:0,max:9999999999,precision:0" name="price" th:value="*{goodsInfo.price}" style="width:150px"/>(0~9999999999分)</td>
+		  <td width="68">单位:</td>
+          <td width="255"><select class="easyui-combobox" id="goodsUnit" name="goodsUnit" style="width:150px">
+            <option value="1">个</option>
+			<option value="2">瓶</option>
+            <option value="3">盒</option>
+			<option value="4">袋</option>
+			<option value="5">箱</option>
+          </select></td>
+        </tr>
+         <tr>
+          <td>详细描述:</td>
+          <td colspan="5">
+
+			<textarea rows="30" cols="50" name="goodsDescript" id="goodsDescript" ><span th:text="*{goodsInfo.goodsDescript}"/></textarea>
+
+          </td>
+        </tr>
+        <tr><form  method="post" enctype="multipart/form-data">  
+          <td>标题图片：</td>
+          <td colspan="5">
+          	<table>
+	          	<tr>
+	          	<td><div  style="width:100px;height:70px;border:1px solid #EFF5FF">
+	          	<img id="loading_title" src="../resources/images/yulan.bmp" th:src="'../'+*{goodsInfo.titleImgUrl}" style="width:100px;height:70px"/></div>
+	          	</td>
+	          	<td><input id="uploadFile_title" type="file"  name="uploadFile_title" onchange="onChangeImg('_title')" style="width:65px;height:22px;"/>
+	          	&nbsp;<input type="button" onclick="addImg('_title')" value="上传" style="width:65px;height:22px;"/>
+	          	 
+	          	</td>
+	          	</tr>
+          	</table>
+          </td>
+		  </form> 
+        </tr>
+        <tr><form  method="post" enctype="multipart/form-data">  
+        <td>缩略图：</td>
+          <td colspan="5">
+           <table>
+	          	<tr>
+	          	<td><div  style="width:100px;height:70px;border:1px solid #EFF5FF"><img id="loading_small" src="../resources/images/yulan.bmp" th:src="'../'+*{goodsInfo.smallImgUrl}" style="width:100px;height:70px"/></div>
+	          	</td>
+	          	<td><input id="uploadFile_small" type="file"  name="uploadFile_small" onchange="onChangeImg('_small')" style="width:65px;height:22px;" />
+	          	&nbsp;<input type="button" onclick="addImg('_small')" value="上传" style="width:65px;height:22px;"/>
+	          	 
+	          	</td>
+	          	</tr>
+          	</table>
+          </td>
+		</form> 
+        </tr>
+ 
+        <tr>
+          <td>多图展示：</td>
+          <td colspan="5">
+			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="add()" style="width:30px">+</a>&nbsp;<a href="javascript:void(0)" class="easyui-linkbutton" onclick="minus()"  style="width:30px">-</a></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td colspan="5" style="height:90px" valign="top">
+          	<table>
+          		<tr>
+          		
+          			<td width="150px" align="center">
+	          			<div id="img1" style="display: none;width:130px;height:70px;border:1px solid #EFF5FF">
+	          				<form  method="post" enctype="multipart/form-data">  
+	          				<img id="loading_img1" src="../resources/images/yulan.bmp" th:src="'../'+*{goodsInfo.imgUrl1}" style="width:130px;height:70px"/>
+	          				</form>
+	          			</div>
+	          			<input id="uploadFile_img1" type="file"  name="uploadFile_img1" onchange="onChangeImg('_img1')" style="width:65px;height:22px;display: none;" />
+	          			<input id="buttonUpload1" name="buttonUpload1" type="button" onclick="addImg('_img1')" value="上传" style="width:65px;height:22px;display: none;"/>
+          			</td>
+          			<td width="150px" align="center">
+	          			<div id="img2" style="display: none;width:130px;height:70px;border:1px solid #EFF5FF">
+	          				<form  method="post" enctype="multipart/form-data">  
+	          				<img id="loading_img2" src="../resources/images/yulan.bmp" th:src="'../'+*{goodsInfo.imgUrl2}" style="width:130px;height:70px"/>
+	          				
+	          				</form>
+	          			</div>
+	          			<input id="uploadFile_img2" type="file"  name="uploadFile_img2" onchange="onChangeImg('_img2')" style="width:65px;height:22px;display: none;" />
+	          			<input id="buttonUpload2" type="button" onclick="addImg('_img2')" value="上传"  style="width:65px;height:22px;display: none;"/>
+          			</td>
+          			<td width="150px" align="center">
+	          			<div id="img3" style="display: none;width:130px;height:70px;border:1px solid #EFF5FF">
+	          				<form  method="post" enctype="multipart/form-data">  
+	          				<img id="loading_img3" src="../resources/images/yulan.bmp" style="width:130px;height:70px"/>
+	          				
+	          				</form>
+	          			</div>
+	          			<input id="uploadFile_img3" type="file"  name="uploadFile_img3" onchange="onChangeImg('_img3')" style="width:65px;height:22px;display: none;" />
+	          			<input id="buttonUpload3" type="button" onclick="addImg('_img3')" value="上传" style="width:65px;height:22px;display: none;"/>
+          			</td>
+          			<td width="150px" align="center">
+	          			<div id="img4" style="display: none;width:130px;height:70px;border:1px solid #EFF5FF">
+	          				<form  method="post" enctype="multipart/form-data">  
+	          				<img id="loading_img4" src="../resources/images/yulan.bmp" style="width:130px;height:70px"/>
+	          				</form>
+	          			</div>
+	          			<input id="uploadFile_img4" type="file"  name="uploadFile_img4" onchange="onChangeImg('_img4')" style="width:65px;height:22px;display: none;" />
+	          			<input id="buttonUpload4" type="button" onclick="addImg('_img4')" value="上传" style="width:65px;height:22px;display: none;"/>
+          			</td>
+          			<td width="150px" align="center">
+	          			<div id="img5" style="display: none;width:130px;height:70px;border:1px solid #EFF5FF">
+	          				<form  method="post" enctype="multipart/form-data">  
+	          				<img id="loading_img5" src="../resources/images/yulan.bmp" style="width:130px;height:70px"/>
+	          				</form>
+	          			</div>
+	          			<input id="uploadFile_img5" type="file"  name="uploadFile_img5" onchange="onChangeImg('_img5')" style="width:65px;height:22px;display: none;" />
+	          			<input id="buttonUpload5" type="button" onclick="addImg('_img5')" value="上传" style="width:65px;height:22px;display: none;"/>
+          			</td>
+          			
+          			
+          		</tr>
+          	</table>
+			
+		  </td>
+        </tr>
+         <tr>
+             <td align="center" colspan="6">
+	             <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">提交</a>
+		    	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">清空</a>
+		    	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="location.href='../goods/goodsinfo'">返回</a>
+             
+              	
+             </td>              
+         </tr>
+         <script>
+			function submitForm(){
+				$('#ff').form('submit');
+			}
+			function clearForm(){
+				$('#ff').form('clear');
+				CKEDITOR.instances.goodsDescript.setData("");
+				$("img[id^='loading']").attr("src","../resources/images/yulan.bmp");
+			}
+		</script>
+         
+  	</table>
+ 	</form>
+   </div>
+</div>
+ 
+
+
+</body>
+</html>

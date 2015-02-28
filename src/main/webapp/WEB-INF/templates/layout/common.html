@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="common-header">
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="../../themes/default/easyui.css" th:href="${#httpServletRequest.contextPath+'/resources/css/lib/jquery-easyui-1.4/themes/default/easyui.css'}"></link>
+	   <link rel="stylesheet" type="text/css" href="../../themes/default/easyui.css" th:href="${#httpServletRequest.contextPath+'/resources/css/lib/jquery-easyui-1.4/themes/icon.css'}"></link>
+	<script type="text/javascript" src="../../jquery.min.js" th:src="${#httpServletRequest.contextPath+'/resources/js/lib/jquery-1.10.2.min.js'}"></script>
+	<script type="text/javascript" src="../../jquery.easyui.min.js" th:src="${#httpServletRequest.contextPath+'/resources/js/lib/jquery-easyui-1.4/jquery.easyui.min.js'}" ></script>
+	<script type="text/javascript" src="../../easyui-lang-zh_CN.js" th:src="${#httpServletRequest.contextPath+'/resources/js/lib/jquery-easyui-1.4/locale/easyui-lang-zh_CN.js'}" ></script>
+	<script type="text/javascript" src="js/lib/validate/validate.js" th:src="${#httpServletRequest.contextPath+'/resources/js/lib/validate/validate.js'}" ></script>
+   <script th:inline="javascript">
+function loadInfo() {
+    $.getJSON("/getColumnList", function(data) {
+        alert("fsdfds");
+    	
+        $("#info").html("");//清空info内容
+        $.each(data, function(i, item) {
+            $("#info").append(
+            		"<div class='item'>" + item.columnId + "</div>" + 
+					"<div class='item'>" + item.name + "</div>" + 
+                    "<div class='item'>" + item.code    + "</div>" +
+                    "<div class='item'>" + item.isShow + "</div>" + 
+                    "<div class='item'>" + item.order    + "</div>" +
+                    "<div class='item'>" + item.isDefault + "</div>" + 
+                    "<div class='item'>" + item.imageUrl    + "</div>" +
+                    "<div class='item'>" + item.descript + "</div>" + 
+                    "<div class='item'>" + item.unit    + "</div>" +
+                    "<div class='item'>" + item.createDate + "</div>" + 
+                    "<div class='item'>" + item.createUser + "</div>");
+        });
+        });
+
+   
+}
+</script>
+   
+    <script th:inline="javascript">
+		/*<![CDATA[*/
+		 var ctx=/*[[${#httpServletRequest.contextPath== "" ? "":#httpServletRequest.contextPath+'/'}]]*/"";
+		 /*]]>*/
+	</script>
+</head>
+</html>

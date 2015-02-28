@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+	<script th:include="layout/common :: common-header" th:remove="tag"></script>
+<script type="text/javascript"
+	th:src="${#httpServletRequest.contextPath+'/resources/js/lib/page/page.js'}"></script>
+<script type="text/javascript"
+	th:src="${#httpServletRequest.contextPath+'/resources/js/lib/page/base_page.js'}"></script>
+<script type="text/javascript"
+	th:src="${#httpServletRequest.contextPath+'/resources/js/column/column.js'}"></script>
+<script type="text/javascript"
+	th:src="${#httpServletRequest.contextPath+'/resources/js/column/column_validate.js'}"></script>
+	
+<script type="text/javascript" src="js/lib/ajaxfileupload/ajaxfileupload.js" 
+th:src="${#httpServletRequest.contextPath+'/resources/js/lib/ajaxfileupload/ajaxfileupload.js'}" ></script>
+	
+
+</head>
+<body>
+<div class="easyui-panel" title="查询条件" style="width:100%;">
+  <div style="padding:5px 20px 5px 50px;">
+<form id="f1" method="post">
+<table cellpadding="5">
+<tr>
+<!--  
+<td>总公司:<input class="easyui-textbox" type="text" name="name" style="width: 60px" ></input></td>-->
+<td>路局:
+<select class="easyui-combobox" name="language"><option value="1">北京局</option><option value="2">NO</option></select>
+</td>
+
+<td>车务段:
+<select class="easyui-combobox" name="language"><option value="ar">北京西站车务段</option></select></td>
+
+<td>车站:
+<select class="easyui-combobox" name="language"><option value="1">北京南站</option><option value="2">天津南站</option>
+</select></td>
+<td>创建日期:
+<input class="easyui-datebox"></input>
+<input class="easyui-datebox"></input>
+</td><td><div style="text-align:center;padding:5px">
+<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="loadInfo()">查询</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-clear" onclick="clearForm1()">清空</a>
+</div></td>
+</tr>
+</table>
+</form>
+</div>
+</div>
+<script>
+function submitForm(){
+$('#f1').form('submit');
+}
+function clearForm1(){
+$('#f1').form('clear');
+}
+</script>
+<div style="width:100%;margin-top:6px"></div>
+<table id="table" title="栏目列表" class="easyui-datagrid" style="width:100%"
+toolbar="#toolbar"
+rownumbers="true" fitColumns="true" singleSelect="true">
+</table>
+
+<div id="toolbar">
+<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newColumn()">添加</a>
+<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editColumn()">编辑</a>
+<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyColumn()">删除</a>
+</div>
+<!-- area 2:list add new dialog-->
+	<div id="dlgadd" class="easyui-dialog" title="栏目添加"
+		style="width: 600px; height: 470px; padding-left:70px;margin-left：auto;margin-right:auto; ">
+		<!-- content begin -->
+		<div id="loga" style="padding: 10px"></div>
+<form id="ff" method="post">
+<table cellpadding="5">
+<tr>
+<td>栏目名称:</td>
+<td><input class="easyui-textbox" type="text" id="name" name="name" data-options="required:true,validType:['length[0,100]']"  missingMessage="该信息不能为空"></input></td>
+</tr>
+<tr>
+<td>栏目编号:</td>
+<td><input class="easyui-textbox" type="text" id="code" name="code" data-options="required:true,validType:['length[0,100]']"  missingMessage="该信息不能为空"></input></td>
+</tr>
+<tr>
+<td>栏目顺序:</td>
+<td><input  class="easyui-numberspinner" style="width:50px" type="text" id="order" name="order" data-options="required:true,validType:['length[0,100]']" missingMessage="该信息不能为空"></input></td>
+</tr>
+<tr>
+<td>默认栏目:</td>
+<td>
+<select panelHeight="50" style="width:50px"  id="isDefault" name="isDefault"   required="required" data-options="min:0,max:1000,editable:false"><option value="1">YES</option><option value="2">NO</option></select>
+</td>
+</tr>
+<tr>
+<td>上级栏目:</td>
+<td>
+<input  id="pid" name="pid"    required="required"  data-options="min:0,max:1000,editable:false" style="width:150px;disabled:false"></input></td>
+</tr>
+<tr>
+<td>是否启用:</td>
+<td>
+<select class="easyui-combobox"  panelHeight="50"  style="width: 50px" id="isShow" name="isShow"  required="required" data-options="min:0,max:1000,editable:false"><option value="1">YES</option><option value="2">NO</option></select></td>
+</tr>
+<tr>
+<td>模板选择:</td>
+<td>
+<input panelHeight="70" class="easyui-combobox" id="templetListId" style="width: 100px;disabled:true"  name="templetListId" required="required" data-options="min:0,max:1000,editable:false">  
+</input></td>
+</tr>
+<tr>
+
+<!-- 
+<form id="filForm" method="post" action="imgupload" enctype="multipart/form-data">
+<td>栏目图标:</td>
+<td><input  id="imageUrl" type="file" name="imageUrl"><a href="javascript:void(0)" id="subFile" class="easyui-linkbutton" >提交</a></input></td>  
+</form> 
+ --> 	 
+</tr>
+<tr>
+<td>栏目描述:</td>
+<td><input class="easyui-textbox" id="descript" name="descript" data-options="multiline:true" style="height:60px"></input></td>
+</tr>
+<input type="hidden" name="keyid" id="keyid" value=""></input> 
+<input type="hidden" name="rowIndex" id="rowIndex" value=""></input>
+</table>
+<div style="padding-left: 70px">
+<form  method="post" id="f2" enctype="multipart/form-data">  
+	          				<img id="loading_img3" src="../resources/images/yulan.bmp" style="width:70px;height:50px"/>
+	          				<input id="uploadFile_img3" type="file"  name="uploadFile_img3" style="display:none" />
+	          				
+</form>
+	          				</div> 
+</form>
+<div style="padding-left:70px">
+<a class="easyui-linkbutton" onclick="browse('_img3')" iconCls="icon-search" value="浏览" >浏览</a>
+<a class="easyui-linkbutton" onclick="addImg('_img3')" iconCls="icon-redo"  value="上传" >上传</a>
+<a href="javascript:void(0)" id="sub" iconCls="icon-ok" class="easyui-linkbutton" >提交</a>
+<a href="javascript:void(0)" iconCls="icon-clear"  class="easyui-linkbutton" onclick="clearForm()">清空</a>
+
+</div>
+</div>
+<script>
+function clearForm(){
+	$('#ff').form('clear');
+}
+
+</script>
+</body>
+</html>

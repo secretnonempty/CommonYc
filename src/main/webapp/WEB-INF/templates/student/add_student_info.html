@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script th:include="layout/common :: common-header" th:remove="tag"></script>
+	<script type="text/javascript" src="js/student/add_student_info.js" th:src="${#httpServletRequest.contextPath+'/resources/js/student/add_student_info.js'}" ></script>
+	<link rel="stylesheet" type="text/css" href="../../themes/default/easyui.css" th:href="${#httpServletRequest.contextPath+'/resources/js/lib/ckeditor/samples/samples.css'}"></link>
+</head>
+<body>
+<div class="easyui-panel" title="学员信息编辑" style="width:auto;margin-left: auto;margin-right: auto;overflow:hidden;">
+  <div style="padding:10px 60px 20px 60px">
+	<form id="ff" method="post">
+    <input  name="stId" id="stId" type="hidden" th:value="*{studentInfo.stId}"/>  
+  	<table cellpadding="5">
+        <tr>
+          <td width="75" style="text-align:right">姓名:</td>
+          <td colspan="5"><span style="width:300px" th:value="*{studentInfo.stName}"></span>
+          </td>
+        </tr>
+        <tr>
+          <td width="75" style="text-align:right">卡号:</td>
+          <td colspan="5"><span style="width:300px" th:value="*{studentInfo.stId}"></span>
+          </td>
+        </tr>
+        <tr>
+          <td width="75" style="text-align:right">驾校名称:</td>
+          <td colspan="5"><span style="width:300px" th:value="*{studentInfo.jxname}"></span>
+          </td>
+        </tr>
+        <tr>
+          <td width="75" style="text-align:right">班种:</td>
+          <td colspan="5"><span style="width:300px" th:value="*{studentInfo.stClasssname}"></span>
+          </td>
+        </tr>
+        <tr>
+          <td width="75" style="text-align:right">所处阶段:</td>
+          <td colspan="5"><span style="width:300px" th:value="*{studentInfo.stautsname}"></span>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align:right">QQ:</td>
+          <td colspan="5"><input class="easyui-textbox" type="text" name="qq" data-options="validType:['length[0,100]']" style="width:100px" th:value="*{studentInfo.qq}"/></td>
+        </tr>       
+        <tr>
+          <td style="text-align:right">备注:</td>
+          <td colspan="5"><input class="easyui-textbox" name="remark" data-options="multiline:true,validType:['length[0,500]']" style="width:350px;height:60px" th:value="*{studentInfo.remark}"/></td>
+        </tr>
+         <tr>
+             <td align="center" colspan="6">
+	            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">提交</a>
+		    	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">清空</a>
+		    	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="location.href='../student/studentinfo'">返回</a>
+             </td>              
+         </tr>
+         <script>
+			function submitForm(){
+				$('#ff').form('submit');
+			}
+			function clearForm(){
+				$('#ff').form('clear');
+			}
+		</script>
+  	</table>
+ 	</form>
+   </div>
+</div>
+</body>
+</html>

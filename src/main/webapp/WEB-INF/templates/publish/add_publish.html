@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script th:include="layout/common :: common-header" th:remove="tag"></script>
+	<script type="text/javascript" src="js/publish/add_publish.js" th:src="${#httpServletRequest.contextPath+'/resources/js/publish/add_publish.js'}" ></script>
+	<link rel="stylesheet" type="text/css" href="../../themes/default/easyui.css" th:href="${#httpServletRequest.contextPath+'/resources/js/lib/ckeditor/samples/samples.css'}"></link>
+</head>
+<body>
+<div class="easyui-panel" title="发布包添加" style="width:100%;margin-left: auto;margin-right: auto;overflow:hidden;">
+  <div style="padding:10px 60px 20px 60px">
+	<form id="ff" method="post">
+ 	
+  <table width="968" cellpadding="5">
+  		 <tr>
+          <td  width="75"  align="right">启用日期:</td>
+          <td colspan="5"><input class="easyui-datebox"  id="pubDate" name="pubDate"  missingMessage="该信息不能为空" style="width:150px" ></input></td>
+        </tr>
+  		 <tr>
+          <td align="right">组织机构:</td>
+          <td colspan="5"><input  type="text" id="unit" name="unit"    style="width:150px"/>
+          </td>
+        </tr>
+          <tr>
+          <td align="right">车次:</td>
+          <td colspan="5">
+            <input class="easyui-combobox"  required="required"   missingMessage="该信息不能为空" name="trainNo" id="trainNo" style="width:150px"/>  
+          </td>
+        </tr>
+       
+        <tr>
+          <td align="right">版本号:</td>
+          <td colspan="5"><input class="easyui-textbox" type="text" name="version" id="version" editable="false"  style="width:50px" readonly="true"/>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">包名称:</td>
+          <td colspan="5"><input class="easyui-textbox" type="text" name="name" id="name" editable="false" style="width:250px" readonly="true"/>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">描述:</td>
+          <td colspan="5"><input class="easyui-textbox" type="text" name="descript" id="descript"   style="width:250px"/>
+          </td>
+        </tr>
+        <tr>
+          <td align="right" valign="top">栏目:</td>
+		  <td width="68" valign="top">
+		  	<a href="javascript:void(0)" class="easyui-linkbutton" id="addColumn">选择栏目</a>          </td>
+          <td width="776" colspan="4" valign="top">
+		  	<textarea rows="3" cols="50" name="columnValues" id="columnValues" disabled="disabled"></textarea>
+		  	<input  name="columnIds" id="columnIds" type="hidden" value=""/>
+          </td>
+        </tr>
+        <!-- 
+		<tr>
+          <td align="right" valign="top">模版:</td>
+		  <td valign="top">
+		  	<a href="javascript:void(0)" class="easyui-linkbutton" id="addTemplet">选择模版</a>
+          </td>
+          <td colspan="4" valign="top">
+		  	<textarea rows="3" cols="50" name="templetValues" id="templetValues" disabled="disabled"></textarea>
+		  	<input  name="templetIds" id="templetIds" type="hidden" value=""/>
+          </td>
+        </tr>
+         -->
+		<tr>
+          <td align="right" valign="top">商品:</td>
+		  <td valign="top">
+		  	<a href="javascript:void(0)" class="easyui-linkbutton" id="addGoods">选择商品</a>
+          </td>
+          <td colspan="4" valign="top">
+		  	<textarea rows="3" cols="50" name="goodsValues" id="goodsValues" disabled="disabled"></textarea>
+		  	<input  name="goodsIds" id="goodsIds" type="hidden" value=""/>
+          </td>
+        </tr>
+         <tr>
+             <td align="center" colspan="6">
+	             <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">提交</a>
+		    	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">清空</a>
+		    	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="location.href='../publish/publish'">返回</a>
+             
+              	
+             </td>              
+         </tr>
+         <script>
+			function submitForm(){
+				$('#ff').form('submit');
+			}
+			function clearForm(){
+				$('#ff').form('clear');
+			}
+		</script>
+         
+  	</table>
+ 	</form>
+   </div>
+</div>
+ 
+	<div id="dd" closed="true" class="easyui-dialog" title="" style="padding: 0px; align: center">
+		<iframe scrolling="auto" id='selectIframe' name='selectIframe' frameborder="0"  src="" style="width:100%;height:400px;"></iframe>
+		<div  style="padding:10px 280px 10px 280px">
+			<a href="javascript:void(0)" class="easyui-linkbutton" style="width:100px;" id="publishBtn">选择信息</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" style="width:100px;" id="closeBtn">关闭</a>
+		</div>
+	</div>
+
+</body>
+</html>

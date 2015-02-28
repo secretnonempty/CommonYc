@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script th:include="layout/common :: common-header" th:remove="tag"></script>
+	<script type="text/javascript"
+	th:src="${#httpServletRequest.contextPath+'/resources/js/lib/page/page.js'}"></script>
+<script type="text/javascript"
+	th:src="${#httpServletRequest.contextPath+'/resources/js/lib/page/base_page.js'}"></script>
+<script type="text/javascript"
+	th:src="${#httpServletRequest.contextPath+'/resources/js/column/column.js'}"></script>
+</head>
+<body>
+<div class="easyui-panel" title="添加加栏目" style="width:400px;margin-left: auto;margin-right: auto;overflow:hidden;">
+  <div style="padding:10px 60px 20px 60px">
+<form id="ff" method="post" action="save">
+<table cellpadding="5">
+<tr>
+<td>栏目名称:</td>
+<td><input class="easyui-textbox" type="text" name="name" data-options="required:true"></input></td>
+</tr>
+<tr>
+<td>栏目编号:</td>
+<td><input class="easyui-textbox" type="text" name="code" data-options="required:true"></input></td>
+</tr>
+<tr>
+<td>栏目顺序:</td>
+<td><input class="easyui-textbox" type="text" name="order" data-options="required:true"></input></td>
+</tr>
+<tr>
+<td>默认栏目:</td>
+<td>
+<select class="easyui-combobox" id="isDefault" name="isDefault"><option value="1">YES</option><option value="2">NO</option></select>
+</td>
+</tr>
+<tr>
+<td>上级栏目:</td>
+<td>
+<input id="pid" name="pid" value="请选择上级栏目"></input>
+</td>
+</tr>
+<tr>
+<td>是否启用:</td>
+<td>
+<select class="easyui-combobox" name="isShow"><option value="1">YES</option><option value="2">NO</option>
+</select></td>
+</tr>
+<tr>
+<td>模板选择:</td>
+<td>
+<input id="templetListId" name="templetListId" value="请选择模板套装">  
+</input></td>
+</tr>
+<tr>
+<td>栏目图标:</td>
+<td><input class="easyui-textbox" type="text" name="imageUrl"></input></td>
+</tr>
+<!--  
+<tr>
+<td>创建日期:</td>
+<td><input class="easyui-datebox" type="text" name="createDate" data-options="required:true"></input></td>
+</tr>
+<tr>
+<td>创建人:</td>
+<td><input class="easyui-textbox" type="text" name="createUser" ></input></td>
+</tr>
+-->
+<tr>
+<td>栏目描述:</td>
+<td><input class="easyui-textbox" name="descript" data-options="multiline:true" style="height:60px"></input></td>
+</tr>
+
+</table>
+</form>
+<div style="text-align:center;padding:5px">
+<a href="javascript:void(0)" id="subadd" class="easyui-linkbutton" >提交</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">清空</a>
+</div>
+</div>
+</div>
+<script>
+
+$(function(){
+	$("#isDefault").change(function(){
+		alert("fdsfd");
+	var select_val = $(this).children('option:selected').val();
+	alert(select_val);
+	if(select_val != ''){
+	if(select_val == '比选'){
+	}else{
+	}
+	}
+	});
+	});
+
+function clearForm(){
+$('#ff').form('clear');
+}
+
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<script th:include="layout/common :: common-header" th:remove="tag"></script>
+	<link rel="stylesheet" type="text/css" href="../demo.css" th:href="${#httpServletRequest.contextPath+'/resources/css/lib/jquery-easyui-1.4/demo.css'}"></link>
+	
+</head>
+<body>
+	login
+	
+	<a th:href="@{testLogout}">登录</a>
+</body>
+
+</html>

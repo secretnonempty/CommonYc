@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script th:include="layout/common :: common-header" th:remove="tag"></script>
+	<link rel="stylesheet" type="text/css" href="../demo.css" th:href="${#httpServletRequest.contextPath+'/resources/css/lib/jquery-easyui-1.4/themes/demo.css'}"></link>
+	<link rel="stylesheet" type="text/css" href="../demo.css" th:href="${#httpServletRequest.contextPath+'/resources/css/lib/jquery-easyui-1.4/themes/icon.css'}"></link>
+	<script type="text/javascript" src="js/lib/page/page.js" th:src="${#httpServletRequest.contextPath+'/resources/js/lib/page/page.js'}" ></script>
+	<script type="text/javascript" src="js/publish/select_templet.js" th:src="${#httpServletRequest.contextPath+'/resources/js/publish/select_templet.js'}" ></script>
+</head>
+<body>
+	<input  name="selectIndex" id="selectIndex" type="hidden" value=""/>
+	<input  name="selectValue" id="selectValue" type="hidden" value=""/>
+	<div class="easyui-panel" title="查询条件" style="width:100%;">
+	  <div style="padding:5px 10px 5px 10px">
+	<form id="f1" method="post">
+		<table cellpadding="5">
+				<tr>
+				<td>组织机构:<input  id="organization" name="organization" data-options="min:0,max:1000,editable:false" style="width: 150px" ></input></td>
+				
+
+				<td>创建日期:
+					<input class="easyui-datebox" id="beginDate" style="width: 90px"></input>
+					<input class="easyui-datebox" id="endDate" style="width: 90px"></input>
+				</td><td><div style="text-align:center;padding:5px">
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" id="queryBtn">查询</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-clear" onclick="clearForm()">重置</a>
+				</div></td>
+				</tr>
+		</table>
+	</form>
+	</div>
+	</div>
+	<script>
+	function clearForm(){
+		$('#f1').form('clear');
+		$("#state1").combobox('setValue',"");//根据ID设定默认值
+	}
+	</script>
+    
+	<div style="width:100%;margin-top:6px"></div>
+	<div class="easyui-panel" title="模版列表" style="width:100%;">
+		<table id="table"  border="0" cellpadding="2" cellspacing="0" style="padding:10px 60px 20px 60px;width:100%"></table>
+	</div>
+	
+	
+
+</body>
+</html>
