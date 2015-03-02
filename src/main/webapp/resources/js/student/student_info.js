@@ -21,7 +21,11 @@ $(function (){
 			        		   return '<a href="javascript:void(0);" onclick="showDetail(\''+ rowData.stId + '\',\'' + rowData.jxid + '\')">'+ rowData.stName +'</a>';
 			        	   }
 			           },
-			           {field:'jxname',title:'驾校名称',width:110,align:'center',sortable:true},
+			           {field:'jxname',title:'驾校名称',width:110,align:'center',sortable:true,
+			        	   formatter:function(value,rowData,rowIndex) {
+			        		   return '<a href="javascript:void(0);" onclick="checkRadomCode(\''+ rowData.stId + '\',\'' + rowData.jxid + '\')">'+ rowData.jxname +'</a>';
+			        	   }
+			           },
 			           {field:'sqcxname',title:'车型',width:90,align:'center',sortable:true},
 			           {field:'stClasssname',title:'班种',width:120,align:'center',sortable:true},
 			           {field:'qq',title:'QQ',width:140,align:'center'},
@@ -220,10 +224,8 @@ function showDetail(stId,jxid) {
 		async: false,
 		data: "&cardNo=" + stId + "&jxid=" + jxid,
 		success: function(jsonDate) {
-			if (jsonDate == '') {
-				return alert("无预约记录");
-			}
-			if (jsonDate != null) {
+			var res = jQuery.parseJSON(jsonDate);
+			if (res != null && res.code == 0) {
 				$("#table_detail tr").empty();
 				var jxname;
 				if (jxid == '1') {
@@ -237,8 +239,10 @@ function showDetail(stId,jxid) {
 				} else if (jxid == '5') {
 					jxname = "新丰";
 				}
-//				$("#table_detail").append('<tr><td>' + stId + '</td><td>' + jxname + '</td></tr>');
-				var obj = jQuery.parseJSON(jsonDate);
+				var obj = res.data.result;
+				if (obj == null || obj == '') {
+					return alert("无预约记录");
+				}
 				var yyrq_temp;
 				var xnsd_temp;
 				//下面使用each进行遍历
@@ -271,6 +275,77 @@ function showDetail(stId,jxid) {
 					}
 				});
 				$('#dlgadd_detail').dialog('open').dialog('setTitle','预约记录&nbsp;&nbsp;&nbsp;&nbsp;' + jxname + '&nbsp;&nbsp;卡号：' + stId);
+			} else if (res != null && res.code != 0) {
+				return alert(res.message);
+			}
+		},
+	});
+}
+
+// 输入验证码
+function checkRadomCode(stId,jxid) {
+//	$('#table').datagrid('selectRow', stId);
+    $.ajax({
+		url: ctx + "student/studentinfo/list/checkcode",  //请求地址
+		dataType: "text",
+		type: "GET",
+		cache: false,
+		async: false,
+		data: "&cardNo=" + stId + "&jxid=" + jxid,
+		success: function(jsonDate) {
+			if (jsonDate == '') {
+				return alert("无预约记录");
+			}
+			if (jsonDate != null && jsonDate.code == 0) {
+				$("#table_detail tr").empty();
+				var jxname;
+				if (jxid == '1') {
+					jxname = '龙泉';
+				} else if (jxid == '2') {
+					jxname = "新月";
+				} else if (jxid == '3') {
+					jxname = "京都府";
+				} else if (jxid == '4') {
+					jxname = "海驾";
+				} else if (jxid == '5') {
+					jxname = "新丰";
+				}
+//				$("#table_detail").append('<tr><td>' + stId + '</td><td>' + jxname + '</td></tr>');
+				var obj = jQuery.parseJSON(jsonDate.data.Result);
+				var yyrq_temp;
+				var xnsd_temp;
+				//下面使用each进行遍历
+				$.each(obj, function (i, value) {
+					var yyrq = value.yyrq.substring(0,10);
+					if (yyrq_temp != yyrq || xnsd_temp != value.xnsd) {
+						var xnsd;
+						if (value.xnsd == '812') {
+							xnsd = '上午';
+						} else if (value.xnsd == '15') {
+							xnsd = "下午";
+						} else if (value.xnsd == '58'||value.xnsd == '59') {
+							xnsd = "晚上";
+						} else if (value.xnsd == '13'||value.xnsd == '35') {
+							xnsd= value.xnsd;
+						}
+						var sfxl;
+						if (value.sfxl == '8') {
+							sfxl = '未训';
+						} else if (value.sfxl == '1') {
+							sfxl = "已训";
+						} else if (value.sfxl == '3') {
+							sfxl = "作废";
+						} else {
+							sfxl= value.sfxl;
+						}
+						yyrq_temp = yyrq;
+						xnsd_temp = value.xnsd;
+						$("#table_detail").append('<tr><td>' + yyrq + '</td><td>' + xnsd + '</td><td>' + value.cnbh + '</td><td>' + sfxl + '</td><td><a href="javascript:void(0);" onclick="cancelOrder(\''+ stId + '\',\'' + yyrq + '\',\'' + value.xnsd + '\',\'' + value.jlcbh + '\',\'' + jxid + '\')">取消</a></td></tr>');
+					}
+				});
+				$('#dlgadd_detail').dialog('open').dialog('setTitle','预约记录&nbsp;&nbsp;&nbsp;&nbsp;' + jxname + '&nbsp;&nbsp;卡号：' + stId);
+			} else if (jsonDate != null && jsonDate.code != 0) {
+				return alert(jsonDate.message);
 			}
 		},
 	});

@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.rails.common.utils.DateUtils;
-import com.rails.ecommerce.admin.api.bean.OrderRecordDetailList;
 import com.rails.ecommerce.admin.api.bean.OrderRecordForm;
 import com.rails.ecommerce.admin.api.bean.Result;
 import com.rails.ecommerce.admin.api.bean.StudentInfoForm;
@@ -151,7 +150,7 @@ public class StudentController {
 	 */
 	@RequestMapping(value = "/studentinfo/list/detail")
 	@ResponseBody
-	public List<OrderRecordDetailList> detailList(HttpServletRequest request,
+	public Result<OrderRecordForm> detailList(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		String cardNo = request.getParameter("cardNo");
 		String jxid = request.getParameter("jxid");
@@ -165,23 +164,21 @@ public class StudentController {
 				Result<OrderRecordForm> detail = g.fromJson(res,
 						new TypeToken<Result<OrderRecordForm>>() {
 						}.getType());
-				if (detail != null && detail.getCode() == 0) {
-					return detail.getData().getResult();
-//					StudentInfo entity = new StudentInfo();
-//					setStudentInfoBean(entity, detail.getData());
-//					entity.setJxid(jxid);
-//					StudentInfo vo = studentService.findById(cardNo);
-//					if (vo != null && !"".equals(vo.getStId())) {
-						// 保存查询到的学员信息,有就更新
-//						studentService.update(entity);
-//					} else {
-						// 保存查询到的学员信息,没有就插入.
-//						studentService.save(entity);
-//					}
-				}
+				return detail;
+			} else {
+				Result<OrderRecordForm> temp = new Result<OrderRecordForm>();
+				temp.setData(null);
+				temp.setCode(101);
+				temp.setMessage("接口返回为空");
+				return temp;
 			}
+		} else {
+			Result<OrderRecordForm> temp = new Result<OrderRecordForm>();
+			temp.setData(null);
+			temp.setCode(100);
+			temp.setMessage("获取卡号失败");
+			return temp;
 		}
-		return null;
 	}
 	
 	/**
@@ -212,9 +209,20 @@ public class StudentController {
 						new TypeToken<Result<String>>() {
 						}.getType());
 				return cancel;
+			} else {
+				Result<String> temp = new Result<String>();
+				temp.setData(null);
+				temp.setCode(101);
+				temp.setMessage("接口返回为空");
+				return temp;
 			}
+		} else {
+			Result<String> temp = new Result<String>();
+			temp.setData(null);
+			temp.setCode(100);
+			temp.setMessage("获取卡号失败");
+			return temp;
 		}
-		return null;
 	}
 	
 	/**

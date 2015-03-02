@@ -21,6 +21,9 @@
 				public static String STUINFO_URL = "/Student/StudyInfo?version=2.5.1&os=ios&aaaaa=lwagVS5wDe8Dc/frGoglhAJ7xTqDbFDFPV29UiDyyvOVZaF15Q6X5l06erelAwpAl6v-add-/TtkN50RE34VYJ9xc5u/O7a2VyoLvuivj-add-3tvewsmWgKZXWnetnb8r0/Dsil/mKVxv7cb0se6PRULHblUL5oU6vUrtjvikGNsLDWjo0=";
 				public static String ORDER_RECORD_URL = "/Exam/ListForISExerciseList?aaaaa=msRdxTcQTHgFJhCG1baCOG9Z/LpNeKM6ErtFHrhPtxAQ79vEfshbgy7z/jcnXnfNX0j2/HLd70tohHcwy/Y58sXYOO/RJg6ME9z5GcJTSsWXMcAUK8NMOkSc9g1sl/7QP7SuE/ldMM4SsdZb0TxKEWAI8loF7No9er9bBbZk3Hg=&ISExercise=0&version=2.5.1&os=ios";
 				public static String CANCEL_ORDER_URL = "/KM2/ClyyDelete?version=2.5.1&os=ios&aaaaa=UPg0iMZ4ez7gOBcqJaDbmP27wucIJvdD5IsAsuvJVrCOHgXZsCdxZ5PSu4Z4A-add-GvQfoPG6D7xdKS-add-9sxxSsiPNnJqwO686p03kmcrpqBcFd/Hq3Ntdmvgy-add-IxgfDbRp28-add-J2mP0vsiPgMN7o4FW4v-add-C-add-6WWeFn8knb1YjTw8Rjw=";
+				public static String CREATE_RANDOM_PRE_URL = "/temp/valicode";
+				public static String CREATE_RANDOM_END_URL = ".jpg?time=1413082915";
+				public static String CHECK_RANDOM_URL = "/api/verifyCode?version=2.5.1&os=ios&aaaaa=CUqAAvYIXaCvyznMl6UCu12uyQird-add-vvwfhVOThZyD-add-3DEtBiGisaFSfr9phzGkUrzq6FL/ONJE9F4LdWO0Cf7kM1vRIufiYnslUqRaFZQapmLStk3kRRZJTiepQA5L771ZjUjnOhHdpWhNdkL5UqHrRb4LV/ph6EKq6fQ9x4/k=";
 				public static String USERINFO_URL = "http://115.28.226.254:8008/User/GetUserInfoByUserId?os=ios&aaaaa=TdaUZxAaMt5aoQzGD1NM3iLisMbDxVR4pxmRIJVK3aERqxKX-add-9iABUe1mSoGNX5Vxs2EjLxgmfdLiyBypa9HPaMCTGiIRBkDn9dtbqohSithbAWIRH1Vq8PG6TIxbBNxz32GYcaLdtJ0wkME1hhLWWanN9zqvgMrOdlQYkV6bnE=&version=2.5.1";
 /*  15: 59 */   public static String ORDER_CODE_URL = "https://dynamic.12306.cn/otsweb/passCodeAction.do?rand=randp";
 /*  16: 61 */   public static String SUBMIT_URL_CHECK = "https://dynamic.12306.cn/otsweb/order/confirmPassengerAction.do?method=checkOrderInfo";
