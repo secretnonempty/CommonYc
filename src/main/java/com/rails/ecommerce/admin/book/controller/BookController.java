@@ -1,4 +1,4 @@
-package com.rails.ecommerce.admin.student.controller;
+package com.rails.ecommerce.admin.book.controller;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -20,19 +20,20 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.rails.common.utils.DateUtils;
+import com.rails.ecommerce.admin.api.bean.CarsNoForm;
+import com.rails.ecommerce.admin.api.bean.LeftCarCountForm;
 import com.rails.ecommerce.admin.api.bean.OrderRecordForm;
 import com.rails.ecommerce.admin.api.bean.Result;
 import com.rails.ecommerce.admin.api.bean.StudentInfoForm;
 import com.rails.ecommerce.admin.api.client.SentClient;
 import com.rails.ecommerce.admin.webservice.client.ClientImpl;
-import com.rails.ecommerce.core.common.domain.PaginationList;
 import com.rails.ecommerce.core.common.domain.TrainNumberView;
 import com.rails.ecommerce.core.student.domain.StudentInfo;
 import com.rails.ecommerce.core.student.service.StudentService;
 
-@RequestMapping(value = "/student")
+@RequestMapping(value = "/book")
 @Controller
-public class StudentController {
+public class BookController {
 
 	Logger log = Logger.getLogger(getClass());
 
@@ -49,10 +50,10 @@ public class StudentController {
 	 * @author gxl DateTime 2015-1-12 下午2:05:45
 	 * @return
 	 */
-	@RequestMapping(value = "/studentinfo")
+	@RequestMapping(value = "/booklist")
 	public ModelAndView studentInfo() {
 		ModelAndView model = new ModelAndView();
-		model.setViewName("student/student_info");
+		model.setViewName("book/book_list");
 		return model;
 	}
 
@@ -93,17 +94,10 @@ public class StudentController {
 	 * @throws Exception
 	 * @throws NumberFormatException
 	 */
-	@RequestMapping(value = "/studentinfo/list")
+	@RequestMapping(value = "/booklist/list")
 	@ResponseBody
-	public PaginationList pageList(HttpServletRequest request,
-			HttpServletResponse response) throws NumberFormatException,
-			Exception {
-		String pageNo = request.getParameter("pageNum");
-		String pageSize = request.getParameter("pageSize");
-
-		String beginDate = request.getParameter("beginDate");
-		String endDate = request.getParameter("endDate");
-
+	public Result<LeftCarCountForm> booklist(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		String cardNo = request.getParameter("cardNo");
 		String jxid = request.getParameter("jxid");
 
@@ -111,33 +105,113 @@ public class StudentController {
 		Gson g = new Gson();
 		String res = null;
 		if (cardNo != null && !"".equals(cardNo)) {
-			res = this.client.getStudentInfo(cardNo, jxid);
+			res = this.client.getLeftCarCount(cardNo, jxid);
 			if (res != null && !"".equals(res)) {
-				Result<StudentInfoForm> stu = g.fromJson(res,
-						new TypeToken<Result<StudentInfoForm>>() {
+				Result<LeftCarCountForm> detail = g.fromJson(res,
+						new TypeToken<Result<LeftCarCountForm>>() {
 						}.getType());
-				if (stu != null && stu.getCode() == 0) {
-					StudentInfo entity = new StudentInfo();
-					setStudentInfoBean(entity, stu.getData());
-					entity.setJxid(jxid);
-					StudentInfo vo = studentService.findById(cardNo);
-					if (vo != null && !"".equals(vo.getStId())) {
-						// 避免更新时把之前备注的信息清除掉
-						entity.setQq(vo.getQq());
-						entity.setRemark(vo.getRemark());
-						// 保存查询到的学员信息,有就更新
-						studentService.update(entity);
-					} else {
-						// 保存查询到的学员信息,没有就插入.
-						studentService.save(entity);
-					}
-				}
+				return detail;
+			} else {
+				Result<LeftCarCountForm> temp = new Result<LeftCarCountForm>();
+				temp.setData(null);
+				temp.setCode(101);
+				temp.setMessage("接口返回为空");
+				return temp;
 			}
+		} else {
+			Result<LeftCarCountForm> temp = new Result<LeftCarCountForm>();
+			temp.setData(null);
+			temp.setCode(100);
+			temp.setMessage("获取卡号失败");
+			return temp;
 		}
-		PaginationList listpage = new PaginationList();
-		listpage = studentService.findAllPage(cardNo, jxid, beginDate,
-				endDate, Integer.valueOf(pageNo), Integer.valueOf(pageSize));
-		return listpage;
+	}
+	
+	/**
+	 * 获得初始化列表 Function:
+	 * 
+	 * @author gxl DateTime 2015-1-12 下午2:06:04
+	 * @return
+	 * @throws Exception
+	 * @throws NumberFormatException
+	 */
+	@RequestMapping(value = "/booklist/list/carsno")
+	@ResponseBody
+	public Result<CarsNoForm> getCarsNo(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String cardNo = request.getParameter("cardNo");
+		String yyrq = request.getParameter("yyrq");
+		String xnsd = request.getParameter("xnsd");
+		String jxid = request.getParameter("jxid");
+		
+		this.initNetwork();
+		Gson g = new Gson();
+		String res = null;
+		if (cardNo != null && !"".equals(cardNo)) {
+			res = this.client.getCarsNo(cardNo, yyrq, xnsd, jxid);
+			if (res != null && !"".equals(res)) {
+				Result<CarsNoForm> detail = g.fromJson(res,
+						new TypeToken<Result<CarsNoForm>>() {
+						}.getType());
+				return detail;
+			} else {
+				Result<CarsNoForm> temp = new Result<CarsNoForm>();
+				temp.setData(null);
+				temp.setCode(101);
+				temp.setMessage("接口返回为空");
+				return temp;
+			}
+		} else {
+			Result<CarsNoForm> temp = new Result<CarsNoForm>();
+			temp.setData(null);
+			temp.setCode(100);
+			temp.setMessage("获取卡号失败");
+			return temp;
+		}
+	}
+	
+	/**
+	 * 获得初始化列表 Function:
+	 * 
+	 * @author gxl DateTime 2015-1-12 下午2:06:04
+	 * @return
+	 * @throws Exception
+	 * @throws NumberFormatException
+	 */
+	@RequestMapping(value = "/booklist/list/submitorder")
+	@ResponseBody
+	public Result<String> submitOrder(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String cardNo = request.getParameter("cardNo");
+		String yyrq = request.getParameter("yyrq");
+		String xnsd = request.getParameter("xnsd");
+		String cnbh = request.getParameter("cnbh");
+		String jxid = request.getParameter("jxid");
+		
+		this.initNetwork();
+		Gson g = new Gson();
+		String res = null;
+		if (cardNo != null && !"".equals(cardNo)) {
+			res = this.client.submitOrder(cardNo, cnbh, yyrq, xnsd, jxid);
+			if (res != null && !"".equals(res)) {
+				Result<String> detail = g.fromJson(res,
+						new TypeToken<Result<String>>() {
+						}.getType());
+				return detail;
+			} else {
+				Result<String> temp = new Result<String>();
+				temp.setData(null);
+				temp.setCode(101);
+				temp.setMessage("接口返回为空");
+				return temp;
+			}
+		} else {
+			Result<String> temp = new Result<String>();
+			temp.setData(null);
+			temp.setCode(100);
+			temp.setMessage("获取卡号失败");
+			return temp;
+		}
 	}
 	
 	/**

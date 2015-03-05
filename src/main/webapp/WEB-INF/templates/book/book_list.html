@@ -6,7 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="../demo.css" th:href="${#httpServletRequest.contextPath+'/resources/css/lib/jquery-easyui-1.4/themes/demo.css'}"></link>
 	<link rel="stylesheet" type="text/css" href="../demo.css" th:href="${#httpServletRequest.contextPath+'/resources/css/lib/jquery-easyui-1.4/themes/icon.css'}"></link>
 	<script type="text/javascript" src="js/lib/page/page.js" th:src="${#httpServletRequest.contextPath+'/resources/js/lib/page/page.js'}" ></script>
-	<script type="text/javascript" src="js/student/student_info.js" th:src="${#httpServletRequest.contextPath+'/resources/js/student/student_info.js'}" ></script>
+	<script type="text/javascript" src="js/book/book_list.js" th:src="${#httpServletRequest.contextPath+'/resources/js/book/book_list.js'}" ></script>
 </head>
 <body>
     <div class="easyui-panel" title="查询条件" style="width:100%;">
@@ -16,7 +16,7 @@
 				<tr>
 					<td style="text-align : right;">卡号:</td>
 					<td>
-						<input class="easyui-textbox" id="cardNo" name="cardNo" data-options="validType:['length[8,8]']"></input>
+						<input class="easyui-textbox" id="cardNo" name="cardNo" value="51255397" data-options="validType:['length[8,8]']"></input>
 					</td>
 					<td style="text-align : right;">&nbsp;&nbsp;驾校名称:</td>
 					<td>
@@ -63,55 +63,11 @@
 	    </table>
     </div>
     <div style="width:100%;margin-top:6px"></div>
-	<div class="easyui-panel" title="学生列表" style="width:100%;">
-		<table id="table" border="0" cellpadding="2" cellspacing="0" style="width:100%" toolbar="#tb"></table>
-	</div>
-	<div id="dlgadd" class="easyui-dialog" title="学生信息编辑">
-		<!-- content begin -->
-	<div id="loga" style="padding: 2px"></div>
-		<form id="ff" method="post">
-			<table cellpadding="2">
-				<tr>
-					<td style="text-align:right">姓名:</td>
-					<td><input class="easyui-textbox" type="text" id="stName" name="stName" data-options="readonly:true,validType:['nochange[0,100]']"></input></td>
-				</tr>
-				<tr>
-					<td style="text-align:right">卡号:</td>
-					<td><input class="easyui-textbox" type="text" id="stId" name="stId" data-options="readonly:true,validType:['nochange[0,100]']"></input></td>
-				</tr>
-				<tr>
-					<td style="text-align:right">驾校名称:</td>
-					<td>
-						<input class="easyui-textbox" type="text" id="jxname" name="jxname" data-options="readonly:true,validType:['nochange[0,100]']"></input>
-						<input  name="jxid" id="jxid" type="hidden" value=""/> 
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align:right">班种:</td>
-					<td><input class="easyui-textbox" type="text" id="stClasssname" name="stClasssname" data-options="readonly:true,validType:['nochange[0,100]']"></input></td>
-				</tr>
-				<tr>
-					<td style="text-align:right">所处阶段:</td>
-					<td><input class="easyui-textbox" type="text" id="stautsname" name="stautsname" data-options="readonly:true,validType:['nochange[0,100]']"></input></td>
-				</tr>
-				<tr>
-					<td style="text-align:right">QQ:</td>
-					<td><input class="easyui-textbox" type="text" id="qq" name="qq" data-options="validType:['length[0,100]']" ></input></td>
-				</tr>
-				<tr>
-					<td style="text-align:right">备注:</td>
-					<td><input class="easyui-textbox" id="remark" name="remark" data-options="multiline:true" style="height:80px;width:200px;"></input></td>
-				</tr>
-			</table>
-		</form>
-		<div style="padding-left:70px; padding-bottom:6px">
-			<a href="javascript:void(0)" id="sub" iconCls="icon-ok" class="easyui-linkbutton" >提交</a>
-			<a href="javascript:void(0)" iconCls="icon-clear" class="easyui-linkbutton" onclick="clearFf()">清空</a>
-		</div>
+	<div class="easyui-panel" title="库存列表" style="width:100%;">
+		<table id="table" border="0" cellpadding="3" cellspacing="6" style="width:100%" toolbar="#tb"></table>
 	</div>
 	
-	
-	<div id="dlgadd_detail" class="easyui-dialog" style="width:38%" title="预约记录">
+	<div id="dlgadd_detail" class="easyui-dialog" style="width:60%" title="车辆编号">
 	<div id="loga_detail" style="padding:2px; width:100%"></div>
 		<form id="ff_detail" method="post">
 			<table id="table_detail"  border="0" cellpadding="4" cellspacing="0" style="width:100%" toolbar="#tb"></table>

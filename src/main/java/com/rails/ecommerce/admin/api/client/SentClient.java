@@ -129,6 +129,141 @@ import com.rails.ecommerce.admin.api.Util;
 /* 230:    */   }
 
 				/**
+				 * 获得预约的车次数量
+				 * 
+				 * @author gxl DateTime 2015-1-12 下午2:06:04
+				 * @return
+				 * @throws Exception
+				 */
+				public String getLeftCarCount(String xxzh, String jxFlag)
+/* 115:    */   {
+/* 116:135 */     this.log.debug("-------------------getLeftCarCount start-------------------");
+///* 117:136 */     Result rs = new Result();
+				  String request_url = getUrl(Constants.LEFT_CAR_COUNT_URL, jxFlag);
+/* 118:137 */     HttpPost post = new HttpPost(request_url);
+/* 119:138 */     List<NameValuePair> formparams = new ArrayList<NameValuePair>();
+/* 120:139 */     formparams.add(new BasicNameValuePair("xxzh", xxzh));
+/* 147:    */     String ans = null;  
+				  try
+/* 148:    */     {
+/* 149:167 */       UrlEncodedFormEntity uef = new UrlEncodedFormEntity(formparams, "UTF-8");
+/* 150:168 */       post.setEntity(uef);
+/* 151:169 */       ResponseHandler<String> responseHandler = new BasicResponseHandler();
+/* 152:170 */       String responseBody = null;
+					
+/* 153:    */       try
+/* 154:    */       {
+/* 155:172 */         post.setHeader("Referer", request_url);
+/* 156:173 */         this.httpclient.setRedirectStrategy(new DefaultRedirectStrategy()
+/* 157:    */         {
+/* 158:    */           public boolean isRedirected(HttpRequest request, HttpResponse response, HttpContext context)
+/* 159:    */           {
+/* 160:175 */             boolean isRedirect = false;
+/* 161:    */             try
+/* 162:    */             {
+/* 163:177 */               isRedirect = super.isRedirected(request, response, context);
+/* 164:    */             }
+/* 165:    */             catch (ProtocolException e)
+/* 166:    */             {
+/* 167:179 */               SentClient.this.log.error(e, e);
+/* 168:    */             }
+/* 169:181 */             if (!isRedirect)
+/* 170:    */             {
+/* 171:182 */               int responseCode = response.getStatusLine().getStatusCode();
+/* 172:183 */               if ((responseCode == 301) || (responseCode == 302)) {
+/* 173:184 */                 return true;
+/* 174:    */               }
+/* 175:    */             }
+/* 176:187 */             return isRedirect;
+/* 177:    */           }
+/* 178:189 */         });
+/* 179:190 */         responseBody = (String)this.httpclient.execute(post, responseHandler);
+/* 180:191 */         ans = Util.removeTagFromHtml(responseBody);
+/* 195:    */       }
+/* 196:    */       catch (Exception e)
+/* 197:    */       {
+/* 198:203 */         this.log.error(e, e);
+/* 199:    */       }
+/* 210:216 */       this.log.debug("-------------------getLeftCarCount end-------------------");
+/* 211:    */     }
+/* 212:    */     catch (Exception e)
+/* 213:    */     {
+/* 214:206 */       this.log.error(e, e);
+/* 215:    */     }
+/* 229:217 */     return ans;
+/* 230:    */   }
+				
+				/**
+				 * 获得预约的车次编号
+				 * 
+				 * @author gxl DateTime 2015-1-12 下午2:06:04
+				 * @return
+				 * @throws Exception
+				 */
+				public String getCarsNo(String xxzh, String yyrq, String xnsd, String jxFlag)
+/* 115:    */   {
+/* 116:135 */     this.log.debug("-------------------getCarsNo start-------------------");
+///* 117:136 */     Result rs = new Result();
+				  String request_url = getUrl(Constants.CARS_NO_URL, jxFlag);
+/* 118:137 */     HttpPost post = new HttpPost(request_url);
+/* 119:138 */     List<NameValuePair> formparams = new ArrayList<NameValuePair>();
+///* 120:139 */     formparams.add(new BasicNameValuePair("filters%5Byyrq%5D", yyrq));
+                  formparams.add(new BasicNameValuePair("filters[yyrq]", yyrq));
+				  formparams.add(new BasicNameValuePair("xxzh", xxzh));
+//				  formparams.add(new BasicNameValuePair("filters%5Bxnsd%5D", xnsd));
+//				  formparams.add(new BasicNameValuePair("filters%5Bxxzh%5D", xxzh));
+				  formparams.add(new BasicNameValuePair("filters[xnsd]", xnsd));
+				  formparams.add(new BasicNameValuePair("filters[xxzh]", xxzh));
+/* 147:    */     String ans = null;  
+				  try
+/* 148:    */     {
+/* 149:167 */       UrlEncodedFormEntity uef = new UrlEncodedFormEntity(formparams, "UTF-8");
+/* 150:168 */       post.setEntity(uef);
+/* 151:169 */       ResponseHandler<String> responseHandler = new BasicResponseHandler();
+/* 152:170 */       String responseBody = null;
+/* 153:    */       try
+/* 154:    */       {
+/* 155:172 */         post.setHeader("Referer", request_url);
+/* 156:173 */         this.httpclient.setRedirectStrategy(new DefaultRedirectStrategy()
+/* 157:    */         {
+/* 158:    */           public boolean isRedirected(HttpRequest request, HttpResponse response, HttpContext context)
+/* 159:    */           {
+/* 160:175 */             boolean isRedirect = false;
+/* 161:    */             try
+/* 162:    */             {
+/* 163:177 */               isRedirect = super.isRedirected(request, response, context);
+/* 164:    */             }
+/* 165:    */             catch (ProtocolException e)
+/* 166:    */             {
+/* 167:179 */               SentClient.this.log.error(e, e);
+/* 168:    */             }
+/* 169:181 */             if (!isRedirect)
+/* 170:    */             {
+/* 171:182 */               int responseCode = response.getStatusLine().getStatusCode();
+/* 172:183 */               if ((responseCode == 301) || (responseCode == 302)) {
+/* 173:184 */                 return true;
+/* 174:    */               }
+/* 175:    */             }
+/* 176:187 */             return isRedirect;
+/* 177:    */           }
+/* 178:189 */         });
+/* 179:190 */         responseBody = (String)this.httpclient.execute(post, responseHandler);
+/* 180:191 */         ans = Util.removeTagFromHtml(responseBody);
+/* 195:    */       }
+/* 196:    */       catch (Exception e)
+/* 197:    */       {
+/* 198:203 */         this.log.error(e, e);
+/* 199:    */       }
+/* 210:216 */       this.log.debug("-------------------getCarsNo end-------------------");
+/* 211:    */     }
+/* 212:    */     catch (Exception e)
+/* 213:    */     {
+/* 214:206 */       this.log.error(e, e);
+/* 215:    */     }
+/* 229:217 */     return ans;
+/* 230:    */   }
+				
+				/**
 				 * 获得预约的车次记录
 				 * 
 				 * @author gxl DateTime 2015-1-12 下午2:06:04
@@ -143,6 +278,74 @@ import com.rails.ecommerce.admin.api.Util;
 /* 118:137 */     HttpPost post = new HttpPost(request_url);
 /* 119:138 */     List<NameValuePair> formparams = new ArrayList<NameValuePair>();
 /* 120:139 */     formparams.add(new BasicNameValuePair("xxzh", xxzh));
+/* 147:    */     String ans = null;  
+				  try
+/* 148:    */     {
+/* 149:167 */       UrlEncodedFormEntity uef = new UrlEncodedFormEntity(formparams, "UTF-8");
+/* 150:168 */       post.setEntity(uef);
+/* 151:169 */       ResponseHandler<String> responseHandler = new BasicResponseHandler();
+/* 152:170 */       String responseBody = null;
+					
+/* 153:    */       try
+/* 154:    */       {
+/* 155:172 */         post.setHeader("Referer", request_url);
+/* 156:173 */         this.httpclient.setRedirectStrategy(new DefaultRedirectStrategy()
+/* 157:    */         {
+/* 158:    */           public boolean isRedirected(HttpRequest request, HttpResponse response, HttpContext context)
+/* 159:    */           {
+/* 160:175 */             boolean isRedirect = false;
+/* 161:    */             try
+/* 162:    */             {
+/* 163:177 */               isRedirect = super.isRedirected(request, response, context);
+/* 164:    */             }
+/* 165:    */             catch (ProtocolException e)
+/* 166:    */             {
+/* 167:179 */               SentClient.this.log.error(e, e);
+/* 168:    */             }
+/* 169:181 */             if (!isRedirect)
+/* 170:    */             {
+/* 171:182 */               int responseCode = response.getStatusLine().getStatusCode();
+/* 172:183 */               if ((responseCode == 301) || (responseCode == 302)) {
+/* 173:184 */                 return true;
+/* 174:    */               }
+/* 175:    */             }
+/* 176:187 */             return isRedirect;
+/* 177:    */           }
+/* 178:189 */         });
+/* 179:190 */         responseBody = (String)this.httpclient.execute(post, responseHandler);
+/* 180:191 */         ans = Util.removeTagFromHtml(responseBody);
+/* 195:    */       }
+/* 196:    */       catch (Exception e)
+/* 197:    */       {
+/* 198:203 */         this.log.error(e, e);
+/* 199:    */       }
+/* 210:216 */       this.log.debug("-------------------getOrderRecord end-------------------");
+/* 211:    */     }
+/* 212:    */     catch (Exception e)
+/* 213:    */     {
+/* 214:206 */       this.log.error(e, e);
+/* 215:    */     }
+/* 229:217 */     return ans;
+/* 230:    */   }
+				
+				/**
+				 * 获得预约的车次记录
+				 * 
+				 * @author gxl DateTime 2015-1-12 下午2:06:04
+				 * @return
+				 * @throws Exception
+				 */
+				public String submitOrder(String xxzh, String cnbh, String yyrq, String xnsd, String jxFlag)
+/* 115:    */   {
+/* 116:135 */     this.log.debug("-------------------submitOrder start-------------------");
+///* 117:136 */     Result rs = new Result();
+				  String request_url = getUrl(Constants.SUBMIT_ORDER_URL, jxFlag);
+/* 118:137 */     HttpPost post = new HttpPost(request_url);
+				  StringBuffer sb = new StringBuffer();
+				  String params = sb.append(cnbh).append(".").append(yyrq).append(".").append(xnsd).append("..").toString();
+/* 119:138 */     List<NameValuePair> formparams = new ArrayList<NameValuePair>();
+/* 120:139 */     formparams.add(new BasicNameValuePair("params", params));
+				  formparams.add(new BasicNameValuePair("xxzh", xxzh));
 /* 147:    */     String ans = null;  
 				  try
 /* 148:    */     {
@@ -198,7 +401,7 @@ import com.rails.ecommerce.admin.api.Util;
 /* 197:    */       {
 /* 198:203 */         this.log.error(e, e);
 /* 199:    */       }
-/* 210:216 */       this.log.debug("-------------------getOrderRecord end-------------------");
+/* 210:216 */       this.log.debug("-------------------submitOrder end-------------------");
 /* 211:    */     }
 /* 212:    */     catch (Exception e)
 /* 213:    */     {

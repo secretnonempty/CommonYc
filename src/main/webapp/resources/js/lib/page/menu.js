@@ -8,6 +8,11 @@ var _menus = {
 			"menuname" : "学生列表",
 			"icon" : "icon-nav",
 			"url" : "student/studentinfo"
+		}, {
+			"menuid" : "912",
+			"menuname" : "预约管理",
+			"icon" : "icon-nav",
+			"url" : "book/booklist"
 		}]
 	}, {
 		"menuid" : "10",
