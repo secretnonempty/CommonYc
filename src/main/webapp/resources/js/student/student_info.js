@@ -26,7 +26,31 @@ $(function (){
 			           {field:'stClasssname',title:'班种',width:120,align:'center',sortable:true},
 			           {field:'qq',title:'QQ',width:140,align:'center'},
 			           {field:'stauts',title:'状态',width:60,align:'center',sortable:true},
-			           {field:'stautsname',title:'所处阶段',width:150,align:'center',sortable:true},
+			           {field:'stautsname',title:'所处阶段',width:150,align:'center',sortable:true,
+			        	   formatter:function(value,rowData,rowIndex) {
+			        		   if (rowData.stauts == '322') {
+			        			   return "3-训-中";
+			        		   } else if (rowData.stauts == '622') {
+			        			   return "毕业";
+			        		   } else if (rowData.stauts == '521') {
+			        			   return "4-考-约";
+			        		   } else if (rowData.stauts == '512') {
+			        			   return "4-考-中";
+			        		   } else if (rowData.stauts == '422') {
+			        			   return "4-课-中";
+			        		   } else if (rowData.stauts == '421') {
+			        			   return "3-考-约";
+			        		   } else if (rowData.stauts == '321') {
+			        			   return "2-考-约";
+			        		   } else if (rowData.stauts == '311' || rowData.stauts == '312') {
+			        			   return "2-训-中";
+			        		   } else if (rowData.stauts == '222') {
+			        			   return "2-训-始";
+			        		   } else {
+			        			   return rowData.stautsname;
+			        		   }
+			        	   }
+			           },
 			           {field:'usexss',title:'已用',width:60,align:'center',sortable:true},
 			           {field:'xlxss',title:'训练',width:60,align:'center',sortable:true},
 			           {field:'yywlxss',title:'预约',width:60,align:'center',sortable:true},
