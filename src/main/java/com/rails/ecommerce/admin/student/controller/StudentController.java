@@ -455,11 +455,39 @@ public class StudentController {
 			studentService.delete(studentInfo);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "faile";
+			return "fail";
 		}
 		return "success";
 	}
 
+	/**
+	 * 删除 Function:
+	 * 
+	 * @author gxl DateTime 2015-1-15 下午2:18:28
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/studentinfo/deletemuti")
+	public String deleteMuti(HttpServletRequest request) {
+		String ids = request.getParameter("ids");
+		String[] idArray = ids.split(",");
+		String msg = "";
+		for (int i = 0;i < idArray.length;i ++) {
+			try {
+				StudentInfo studentInfo = studentService.findById(idArray[i]);
+				if (studentInfo != null && !"".equals(studentInfo.getStId())) {
+					studentService.delete(studentInfo);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				msg = msg + ",  " +idArray[i] + "fail  ";
+				return msg;
+			}
+		}
+		return "success";
+	}
+	
 	/**
 	 * ajax表单提交 Function:
 	 * 

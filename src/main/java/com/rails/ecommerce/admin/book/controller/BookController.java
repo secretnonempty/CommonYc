@@ -22,6 +22,7 @@ import com.google.gson.reflect.TypeToken;
 import com.rails.common.utils.DateUtils;
 import com.rails.ecommerce.admin.api.bean.CarsNoForm;
 import com.rails.ecommerce.admin.api.bean.LeftCarCountForm;
+import com.rails.ecommerce.admin.api.bean.OrderRecordDetailList;
 import com.rails.ecommerce.admin.api.bean.OrderRecordForm;
 import com.rails.ecommerce.admin.api.bean.Result;
 import com.rails.ecommerce.admin.api.bean.StudentInfoForm;
@@ -263,12 +264,11 @@ public class BookController {
 	 * @throws Exception
 	 * @throws NumberFormatException
 	 */
-	@RequestMapping(value = "/studentinfo/list/detail/cancelorder")
+	@RequestMapping(value = "/booklist/list/cancelorder")
 	@ResponseBody
 	public Result<String> cancelOrder(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		String cardNo = request.getParameter("cardNo");
-		String jlcbh = request.getParameter("jlcbh");
 		String yyrq = request.getParameter("yyrq");
 		String xnsd = request.getParameter("xnsd");
 		String jxid = request.getParameter("jxid");
@@ -276,7 +276,36 @@ public class BookController {
 		this.initNetwork();
 		Gson g = new Gson();
 		String res = null;
+		Result<OrderRecordForm> detail = null;
 		if (cardNo != null && !"".equals(cardNo)) {
+			res = this.client.getOrderRecord(cardNo, jxid);
+			if (res != null && !"".equals(res)) {
+				detail = g.fromJson(res,
+						new TypeToken<Result<OrderRecordForm>>() {
+						}.getType());
+			} else {
+				Result<String> temp = new Result<String>();
+				temp.setData(null);
+				temp.setCode(101);
+				temp.setMessage("查询取消车次-接口返回为空");
+				return temp;
+			}
+		} else {
+			Result<String> temp = new Result<String>();
+			temp.setData(null);
+			temp.setCode(100);
+			temp.setMessage("查询取消车次-获取卡号失败");
+			return temp;
+		}
+		String jlcbh = null;
+		if (detail != null && !"".equals(detail) && detail.getData() !=null && detail.getData().getResult()!= null) {
+			List<OrderRecordDetailList> list = detail.getData().getResult();
+			for (int i = 0;i < list.size();i ++) {
+				String temp = list.get(i).getYYRQ().substring(0, 10).replace("/", "-");
+				if (yyrq.equals(temp)) {
+					jlcbh = list.get(i).getJLCBH();
+				}
+			}
 			res = this.client.cancelOrder(cardNo, jlcbh, yyrq.replace("/", "-"), xnsd, jxid);
 			if (res != null && !"".equals(res)) {
 				Result<String> cancel = g.fromJson(res,
@@ -287,14 +316,14 @@ public class BookController {
 				Result<String> temp = new Result<String>();
 				temp.setData(null);
 				temp.setCode(101);
-				temp.setMessage("接口返回为空");
+				temp.setMessage("取消车次-接口返回为空");
 				return temp;
 			}
 		} else {
 			Result<String> temp = new Result<String>();
 			temp.setData(null);
 			temp.setCode(100);
-			temp.setMessage("获取卡号失败");
+			temp.setMessage("取消车次-获取卡号失败");
 			return temp;
 		}
 	}

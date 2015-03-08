@@ -9,13 +9,9 @@ $(function (){
 	var url = ctx+"/student/studentinfo/list";
 	//表格列的定义
 	var columns = [[
-			           {field:'stNo',title:'编号',width:50,align:'center',sortable:true,
-			        	   formatter: function(value,row,index){
-			        				return index + 1;
-			        		}
-			           },
-			           {field:'stId',title:'卡号',width:130,align:'center',sortable:true},
-			           {field:'stPwd',title:'密码',width:160,align:'center',sortable:true},
+			           {field:'stNo',title:'编号', checkbox:true},
+			           {field:'stId',title:'卡号',width:140,align:'center',sortable:true},
+			           {field:'stPwd',title:'密码',width:170,align:'center',sortable:true},
 			           {field:'stName',title:'姓名',width:100,align:'center',
 			        	   formatter:function(value,rowData,rowIndex) {
 			        		   return '<a href="javascript:void(0);" onclick="showDetail(\''+ rowData.stId + '\',\'' + rowData.jxid + '\')">'+ rowData.stName +'</a>';
@@ -30,7 +26,7 @@ $(function (){
 			           {field:'stClasssname',title:'班种',width:120,align:'center',sortable:true},
 			           {field:'qq',title:'QQ',width:140,align:'center'},
 			           {field:'stauts',title:'状态',width:60,align:'center',sortable:true},
-			           {field:'stautsname',title:'所处阶段',width:140,align:'center',sortable:true},
+			           {field:'stautsname',title:'所处阶段',width:150,align:'center',sortable:true},
 			           {field:'usexss',title:'已用',width:60,align:'center',sortable:true},
 			           {field:'xlxss',title:'训练',width:60,align:'center',sortable:true},
 			           {field:'yywlxss',title:'预约',width:60,align:'center',sortable:true},
@@ -38,14 +34,15 @@ $(function (){
  			           {field:'zfxss',title:'作废',width:60,align:'center',sortable:true},
  			           {field:'gmxss',title:'共计',width:60,align:'center',sortable:true},
  			           {field:'remark',title:'备注',width:280,align:'center',sortable:true},
- 			           {field:'opt',title:'操作',width:140,align:'center',formatter:function(value,rowData,rowIndex) {
- 			        	   return '<a href="javascript:void(0);" onclick="doEdit(\''+ rowIndex + '\')">编辑</a>&nbsp;<a href="javascript:void(0);" onclick="deleteLine(\''+rowIndex+'\',\''+rowData.stId+'\')" class="tb-btn delete1">删除</a>';
+ 			           {field:'opt',title:'操作',width:100,align:'center',formatter:function(value,rowData,rowIndex) {
+ 			        	  return '<a href="javascript:void(0);" onclick="doEdit(\''+ rowIndex + '\')">编辑</a>';
+// 			        	   return '<a href="javascript:void(0);" onclick="doEdit(\''+ rowIndex + '\')">编辑</a>&nbsp;<a href="javascript:void(0);" onclick="deleteLine(\''+rowIndex+'\',\''+rowData.stId+'\')" class="tb-btn delete1">删除</a>';
  			           }
 					}
  				  ]]
 	
 	//初始化页面
-	var page = new $.WifiPage({url:url, initPageNum: 1, initPageSize:12, columns:columns ,param:'&jxid=1'});
+	var page = new $.WifiPage({url:url, initPageNum: 1, initPageSize:12, columns:columns, singleSelect: false, selectOnCheck: true, checkOnSelect: true, param:'&jxid=1'});
 	page.init();
 	
 	//查询方法
@@ -57,6 +54,46 @@ $(function (){
 		var endDate = $('#endDate').datebox('getValue');
 		var param = "&cardNo="+cardNo+"&jxid="+jxid+"&beginDate="+beginDate+"&endDate="+endDate;
 		page.queryData(param);
+	});
+
+	$('#deleteBtn').click(function() {
+		var checkedItems = $('#table').datagrid('getChecked');
+		var ids = [];
+		$.each(checkedItems, function(index, item) {
+			ids.push(item.stId);
+		});
+		if (ids == '') {
+			return alert("请选择需要删除的记录！");
+		}
+		$.messager.confirm('确认', '您确认删除这些条记录吗?', function(r) {
+			if (r) {
+				ids = ids.join(",")
+				$.ajax({
+					type : 'get',
+					url : ctx + "/student/studentinfo/deletemuti?ids=" + ids,
+					success : function(s) {
+						if ("success" == s) {
+							page.init();	
+							$('#table').datagrid('reload');
+//							$('#table').datagrid('deleteRow',rowIndex);//根据索引删除当前行
+							$.messager.show({
+			        			title:'系统提示',
+			        			msg:'删除成功!',
+			        			showType:'show'
+			        			});
+							// $.messager.alert('系统提示', "删除成功!", 'info');				 
+						} else
+							$.messager.show({
+			        			title:'系统提示',
+			        			msg:'删除失败!',
+			        			showType:'show'
+			        			});
+						 //$.messager.alert('系统提示', "删除失败!", 'info');
+					},
+					async : true
+				});
+			}
+		});
 	});
 
 	//增加
@@ -378,4 +415,8 @@ function checkRadomCode(stId,jxid) {
 			}
 		},
 	});
+}
+
+function clearForm() {
+	$('#f1').form('clear');
 }

@@ -24,8 +24,8 @@ $(function (){
 			data: param,
 			success : function(s) {
 				$("#table").empty();
-				$('#dataLoad').hide();
 				var res = jQuery.parseJSON(s);
+				$('#dataLoad').hide();
 				if (res != null && res.code == 0) {
 					var xnsdList = res.data.xnsdList;
 					var yyrqList = res.data.yyrqList;
@@ -58,7 +58,8 @@ $(function (){
 							var xnsd = value.xnsd;
 							if (xnsd_outer == xnsd) {
 								if (value.isBpked) {
-									$("#datetd"+xnsd).after('<td style="width:30px;text-align:center;color:red;">已约</td>');
+									$("#datetd"+xnsd).after('<td style="width:30px;text-align:center;color:red;"><a href="javascript:void(0);" onclick="cancelOrder(\''+ cardNo + '\',\'' 
+											+ value.yyrq.substring(0,10).replace("/","-").replace("/","-") + '\',\'' + value.xnsd + '\',\'' + jxid + '\')">已约</a></td>');
 								} else if (value.sl == 0) {
 									$("#datetd"+xnsd).after('<td style="width:30px;text-align:center;color:black;">无</td>');
 								} else {
@@ -72,7 +73,7 @@ $(function (){
 					alert(res.message);
 				}
 			},
-			async : false
+			async : true
 		});
 	});
 	
@@ -83,7 +84,7 @@ $(function (){
 })
 
 // 取消预约
-function cancelOrder(cardNo,yyrq,xnsd,jlcbh,jxid) {
+function cancelOrder(cardNo,yyrq,xnsd,jxid) {
 	var xnsd_show;
 	if (xnsd == '812') {
 		xnsd_show = '上午';
@@ -97,13 +98,13 @@ function cancelOrder(cardNo,yyrq,xnsd,jlcbh,jxid) {
 	$.messager.confirm('确认', '您确认取消&nbsp;&nbsp;'+yyrq+"&nbsp;&nbsp;&nbsp;&nbsp;"+xnsd_show+'&nbsp;&nbsp;时段的这条预约记录吗?', function(r) {
 		if (r) {
 			$.ajax({
-				url: ctx + "student/studentinfo/list/detail/cancelorder",  //请求地址
+				url: ctx + "book/booklist/list/cancelorder",  //请求地址
 				dataType: "text",
 				type: "GET",
 				cache: false,
-				data: "&cardNo=" + cardNo + "&yyrq=" + yyrq + "&xnsd=" + xnsd + "&jlcbh=" + jlcbh + "&jxid=" + jxid,
+				data: "cardNo=" + cardNo + "&yyrq=" + yyrq + "&xnsd=" + xnsd + "&jxid=" + jxid,
 				success : function(s) {
-					showDetail(cardNo,jxid);
+					$('#queryBtn').click();
 					var obj = jQuery.parseJSON(s);
 					if (obj != null && obj.code == 0) {
 						alert("取消成功");
@@ -111,7 +112,7 @@ function cancelOrder(cardNo,yyrq,xnsd,jlcbh,jxid) {
 						alert(obj.message);
 					}
 				},
-				async : false
+				async : true
 			});
 		}
 	});
@@ -162,8 +163,8 @@ function queryCarsNoDetail(cardNo,yyrq,xnsd,jxid) {
 		dataType: "text",
 		type: "GET",
 		cache: false,
-		async: false,
-		data: "&cardNo=" + cardNo + "&yyrq=" + yyrq + "&xnsd=" + xnsd + "&jxid=" + jxid,
+		async: true,
+		data: "cardNo=" + cardNo + "&yyrq=" + yyrq + "&xnsd=" + xnsd + "&jxid=" + jxid,
 		success: function(jsonDate) {
 			var res = jQuery.parseJSON(jsonDate);
 			$('#dataLoad').hide();
@@ -195,7 +196,7 @@ function queryCarsNoDetail(cardNo,yyrq,xnsd,jxid) {
 								+ yyrq + '\',\'' + xnsd + '\',\'' + value.cnbh + '\',\'' + jxid + '\')">'+ value.cnbh +'</a></td>');
 					}
 				});
-				$('#dlgadd_detail').dialog('open').dialog('setTitle','预约记录&nbsp;&nbsp;&nbsp;&nbsp;' + jxname + '&nbsp;&nbsp;卡号：' + cardNo);
+				$('#dlgadd_detail').dialog('open').dialog('setTitle','车辆编号&nbsp;&nbsp;&nbsp;&nbsp;' + jxname + '&nbsp;&nbsp;卡号：' + cardNo + '&nbsp;&nbsp;时段：' + xnsd);
 			} else if (res != null && res.code != 0) {
 				return alert(res.message);
 			}
@@ -222,10 +223,11 @@ function submitOrder(cardNo,yyrq,xnsd,cnbh,jxid) {
 				dataType: "text",
 				type: "GET",
 				cache: false,
-				data: "&cardNo=" + cardNo + "&yyrq=" + yyrq + "&xnsd=" + xnsd + "&cnbh=" + cnbh + "&jxid=" + jxid,
+				data: "cardNo=" + cardNo + "&yyrq=" + yyrq + "&xnsd=" + xnsd + "&cnbh=" + cnbh + "&jxid=" + jxid,
 				success : function(s) {
-					queryCarsNoDetail(cardNo,yyrq,xnsd,jxid);
 					var obj = jQuery.parseJSON(s);
+					$('#dlgadd_detail').dialog('close');
+					$('#queryBtn').click();
 					if (obj != null) {
 						if (obj.message == null || obj.message == '') {
 							alert("预约成功");
@@ -234,7 +236,7 @@ function submitOrder(cardNo,yyrq,xnsd,cnbh,jxid) {
 						}
 					}
 				},
-				async : false
+				async : true
 			});
 		}
 	});
@@ -259,7 +261,7 @@ function change(cardNo,yyrq,xnsd,jlcbh,cnbh,jxid) {
 				dataType: "text",
 				type: "GET",
 				cache: false,
-				data: "&cardNo=" + cardNo + "&yyrq=" + yyrq + "&xnsd=" + xnsd + "&jlcbh=" + jlcbh + "&cnbh=" + cnbh + "&jxid=" + jxid + "&cardNoTo=" + $("#cardNoTo").val(),
+				data: "cardNo=" + cardNo + "&yyrq=" + yyrq + "&xnsd=" + xnsd + "&jlcbh=" + jlcbh + "&cnbh=" + cnbh + "&jxid=" + jxid + "&cardNoTo=" + $("#cardNoTo").val(),
 				success : function(s) {
 					showDetail(cardNo,jxid);
 					var obj = jQuery.parseJSON(s);
