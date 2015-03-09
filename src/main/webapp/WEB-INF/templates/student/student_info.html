@@ -16,28 +16,39 @@
 				<tr>
 					<td style="text-align : right;">卡号:</td>
 					<td>
-						<input class="easyui-textbox" id="cardNo" name="cardNo" data-options="validType:['length[8,8]']"></input>
+						<input class="easyui-textbox" style="width:110px;" id="cardNo" name="cardNo" data-options="validType:['length[8,8]']"></input>
 					</td>
-					<td style="text-align : right;">&nbsp;&nbsp;驾校名称:</td>
+					<td style="text-align : right;">&nbsp;&nbsp;驾校:</td>
 					<td>
 						<select class="easyui-combobox" id="jxid" name="jxid" data-options="required:true" >
-							<option id="lqoption" value="1" selected="selected">龙泉</option>
+							<option value="1" selected="selected">龙泉</option>
 						    <option value="2">新月</option>
 						    <option value="3">京都府</option>
 						    <option value="4">海驾</option>
 						    <option value="5">新丰</option>
 						</select>
 					</td>
-					<td style="text-align : right;">&nbsp;&nbsp;订单日期:</td>
+					<td style="text-align : right;">班种:</td>
 					<td>
-						<input class="easyui-datebox" id="beginDate"></input>&nbsp;&nbsp;至
+						<select class="easyui-combobox" id="class_sign" name="class_sign" data-options="required:true" >
+							<option value="" selected="selected">请选择</option>
+						    <option value="2">周末</option>
+						    <option value="1">平日</option>
+						</select>
 					</td>
+					<td style="text-align : right;">阶段:</td>
 					<td>
-						<!-- <input class="easyui-datebox" id="endDate" required="required"></input> -->
-						<input class="easyui-datebox" id="endDate"></input>
+						<select class="easyui-combobox" id="status_name" name="status_name" data-options="required:true" >
+							<option value="" selected="selected">请选择</option>
+						    <option value="2">科目二</option>
+						    <option value="3">科目三</option>
+						    <option value="4">科目四</option>
+						    <option value="6">毕业</option>
+						</select>
 					</td>
 					<td>
 						<div style="text-align:center;padding:5px">
+							<input class="easyui-textbox" style="width:110px;" id="temp" name="temp"></input>
 							<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" id="queryBtn">查询</a>
 							<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" id="deleteBtn">删除</a>
 						</div>

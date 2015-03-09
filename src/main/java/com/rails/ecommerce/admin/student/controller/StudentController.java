@@ -101,8 +101,8 @@ public class StudentController {
 		String pageNo = request.getParameter("pageNum");
 		String pageSize = request.getParameter("pageSize");
 
-		String beginDate = request.getParameter("beginDate");
-		String endDate = request.getParameter("endDate");
+		String class_sign = request.getParameter("class_sign");
+		String status_name = request.getParameter("status_name");
 
 		String cardNo = request.getParameter("cardNo");
 		String jxid = request.getParameter("jxid");
@@ -135,8 +135,8 @@ public class StudentController {
 			}
 		}
 		PaginationList listpage = new PaginationList();
-		listpage = studentService.findAllPage(cardNo, jxid, beginDate,
-				endDate, Integer.valueOf(pageNo), Integer.valueOf(pageSize));
+		listpage = studentService.findAllPage(cardNo, jxid, class_sign,
+				status_name, Integer.valueOf(pageNo), Integer.valueOf(pageSize));
 		return listpage;
 	}
 	

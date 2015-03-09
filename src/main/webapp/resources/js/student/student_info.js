@@ -66,7 +66,7 @@ $(function (){
  				  ]]
 	
 	//初始化页面
-	var page = new $.WifiPage({url:url, initPageNum: 1, initPageSize:12, columns:columns, singleSelect: false, selectOnCheck: true, checkOnSelect: true, param:'&jxid=1'});
+	var page = new $.WifiPage({url:url, initPageNum: 1, initPageSize:50, columns:columns, singleSelect: false, selectOnCheck: true, checkOnSelect: true, param:'&jxid=1'});
 	page.init();
 	
 	//查询方法
@@ -74,9 +74,9 @@ $(function (){
 		//查询参数	
 		var cardNo = $("#cardNo").val();
 		var jxid = $("#jxid").combobox('getValue');
-		var beginDate = $('#beginDate').datebox('getValue');
-		var endDate = $('#endDate').datebox('getValue');
-		var param = "&cardNo="+cardNo+"&jxid="+jxid+"&beginDate="+beginDate+"&endDate="+endDate;
+		var class_sign = $('#class_sign').combobox('getValue');
+		var status_name = $('#status_name').combobox('getValue');
+		var param = "&cardNo="+cardNo+"&jxid="+jxid+"&class_sign="+class_sign+"&status_name="+status_name;
 		page.queryData(param);
 	});
 
