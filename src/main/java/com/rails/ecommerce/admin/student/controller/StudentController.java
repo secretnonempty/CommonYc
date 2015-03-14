@@ -110,6 +110,8 @@ public class StudentController {
 		this.initNetwork();
 		Gson g = new Gson();
 		String res = null;
+		PaginationList listpage = new PaginationList();
+		boolean pwdFlag = false;
 		if (cardNo != null && !"".equals(cardNo)) {
 			res = this.client.getStudentInfo(cardNo, jxid);
 			if (res != null && !"".equals(res)) {
@@ -125,6 +127,9 @@ public class StudentController {
 						// 避免更新时把之前备注的信息清除掉
 						entity.setQq(vo.getQq());
 						entity.setRemark(vo.getRemark());
+						if (!entity.getStPwd().equals(vo.getStPwd())) {
+							pwdFlag = true;
+						}
 						// 保存查询到的学员信息,有就更新
 						studentService.update(entity);
 					} else {
@@ -134,9 +139,13 @@ public class StudentController {
 				}
 			}
 		}
-		PaginationList listpage = new PaginationList();
 		listpage = studentService.findAllPage(cardNo, jxid, class_sign,
 				status_name, Integer.valueOf(pageNo), Integer.valueOf(pageSize));
+		if (pwdFlag) {
+			@SuppressWarnings("unchecked")
+			List<StudentInfo> st = (ArrayList<StudentInfo>) listpage.getRows();
+			st.get(0).setXybmd("change");
+		}
 		return listpage;
 	}
 	

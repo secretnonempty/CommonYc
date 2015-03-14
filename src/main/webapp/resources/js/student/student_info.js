@@ -11,7 +11,15 @@ $(function (){
 	var columns = [[
 			           {field:'stNo',title:'编号', checkbox:true},
 			           {field:'stId',title:'卡号',width:140,align:'center',sortable:true},
-			           {field:'stPwd',title:'密码',width:170,align:'center',sortable:true},
+			           {field:'stPwd',title:'密码',width:170,align:'center',sortable:true,
+			        	   formatter:function(value,rowData,rowIndex) {
+			        		   if (rowData.xybmd == 'change') {
+			        			   return '<span style="color:blue;">'+ rowData.stPwd +'</span>';
+			        		   } else {
+			        			   return rowData.stPwd;
+			        		   }
+			        	   }
+			           },
 			           {field:'stName',title:'姓名',width:100,align:'center',
 			        	   formatter:function(value,rowData,rowIndex) {
 			        		   return '<a href="javascript:void(0);" onclick="showDetail(\''+ rowData.stId + '\',\'' + rowData.jxid + '\')">'+ rowData.stName +'</a>';

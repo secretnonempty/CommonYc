@@ -139,11 +139,6 @@ $(function (){
 					cache: false
 				});
 		}
-
-	  	
-
-	 	
-
 })
 
 
