@@ -18,6 +18,7 @@
 				public static String JDF_URL = "http://218.205.189.202:8001";
 				public static String HJ_URL = "http://haijia.bjxueche.net:8008";
 				public static String XF_URL = "http://xinfeng.bjxueche.net:8008";
+				public static String YD_URL = "http://yuanda.bjxueche.net:8008";
 				public static String STUINFO_URL = "/Student/StudyInfo?version=2.5.1&os=ios&aaaaa=lwagVS5wDe8Dc/frGoglhAJ7xTqDbFDFPV29UiDyyvOVZaF15Q6X5l06erelAwpAl6v-add-/TtkN50RE34VYJ9xc5u/O7a2VyoLvuivj-add-3tvewsmWgKZXWnetnb8r0/Dsil/mKVxv7cb0se6PRULHblUL5oU6vUrtjvikGNsLDWjo0=";
 				public static String ORDER_RECORD_URL = "/Exam/ListForISExerciseList?aaaaa=msRdxTcQTHgFJhCG1baCOG9Z/LpNeKM6ErtFHrhPtxAQ79vEfshbgy7z/jcnXnfNX0j2/HLd70tohHcwy/Y58sXYOO/RJg6ME9z5GcJTSsWXMcAUK8NMOkSc9g1sl/7QP7SuE/ldMM4SsdZb0TxKEWAI8loF7No9er9bBbZk3Hg=&ISExercise=0&version=2.5.1&os=ios";
 				public static String LEFT_CAR_COUNT_URL = "/KM2/ClYyTimeSectionUIQuery2?version=2.5&os=ios&aaaaa=nOluMuNX9WjiNQUjBktD8-add-wnbXWQZ3AA9Hz8a687r4ryQu0R4wcpYMASlr8Y%2fR2ALyakitSCDH4KXJG-add-BvFsME9Ul9pNkIOBn0orGWVKwnYez-add-QseBQWQ12nIyixDTbieJ0pHzehm7hN51PeVQ8VLHLXyMscQICRUGrT%2fSpqT3A%3d";

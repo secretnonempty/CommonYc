@@ -333,6 +333,8 @@ function showDetail(stId,jxid) {
 					jxname = "海驾";
 				} else if (jxid == '5') {
 					jxname = "新丰";
+				} else if (jxid == '6') {
+					jxname = "远大";
 				}
 				var obj = res.data.result;
 				if (obj == null || obj == '') {
@@ -407,6 +409,8 @@ function checkRadomCode(stId,jxid) {
 					jxname = "海驾";
 				} else if (jxid == '5') {
 					jxname = "新丰";
+				} else if (jxid == '6') {
+					jxname = "远大";
 				}
 //				$("#table_detail").append('<tr><td>' + stId + '</td><td>' + jxname + '</td></tr>');
 				var obj = jQuery.parseJSON(jsonDate.data.Result);

@@ -50,6 +50,8 @@ import com.rails.ecommerce.admin.api.Util;
 						  request_url = Constants.HJ_URL + urlName;
 					  } else if ("5".equals(jxFlag)) {
 						  request_url = Constants.XF_URL + urlName;
+					  } else if ("6".equals(jxFlag)) {
+						  request_url = Constants.YD_URL + urlName;
 					  } else {
 						  request_url = Constants.LQ_URL + urlName;
 					  }
