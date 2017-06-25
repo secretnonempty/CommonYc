@@ -12,10 +12,11 @@ $(function (){
 		$('#dataLoad').show();
 		//查询参数	
 		var cardNo = $("#cardNo").val();
+		var pwd = $("#pwd").val();
 		var jxid = $("#jxid").combobox('getValue');
 //		var beginDate = $('#beginDate').datebox('getValue');
 //		var endDate = $('#endDate').datebox('getValue');
-		var param = "&cardNo="+cardNo+"&jxid="+jxid;
+		var param = "&cardNo="+cardNo+"&pwd="+pwd+"&jxid="+jxid;
 		$.ajax({
 			url: ctx + "book/booklist/list",  //请求地址
 			dataType: "text",
@@ -42,24 +43,16 @@ $(function (){
 					//下面使用each进行遍历
 					$.each(xnsdList, function (indexXnsd, valueXnsd) {
 						var xnsd_outer = valueXnsd.xnsd;
-						var xnsd_show;
-						if (xnsd_outer == '812') {
-							xnsd_show = '上午';
-						} else if (xnsd_outer == '15') {
-							xnsd_show = "下午";
-						} else if (xnsd_outer == '58'||xnsd_outer == '59') {
-							xnsd_show = "晚上";
-						} else if (xnsd_outer == '13'||xnsd_outer == '35') {
-							xnsd_show = xnsd_outer;
-						}
-						$("#datetr").before('<tr><td style="width:16px;text-align:center;" id="datetd'+xnsd_outer+'">'+ xnsd_show +'</td></tr>');
+						$("#datetr").before('<tr><td style="width:16px;text-align:center;" id="datetd'+xnsd_outer+'"><a href="javascript:void(0);" onclick="queryCarsNoSelect(\''+ cardNo + '\',\'' + xnsd_outer + '\',\'' + jxid + '\')">'+ xnsd_outer +'</a></td></tr>');
 						//下面使用each进行遍历
 						$.each(uidatas, function (i, value) {
 							var xnsd = value.xnsd;
 							if (xnsd_outer == xnsd) {
 								if (value.isBpked) {
+//									$("#datetd"+xnsd).after('<td style="width:30px;text-align:center;color:red;"><a href="javascript:void(0);" onclick="cancelOrder(\''+ cardNo + '\',\'' 
+//											+ value.yyrq.substring(0,10).replace("/","-").replace("/","-") + '\',\'' + value.xnsd + '\',\'' + jxid + '\')">已约</a></td>');
 									$("#datetd"+xnsd).after('<td style="width:30px;text-align:center;color:red;"><a href="javascript:void(0);" onclick="cancelOrder(\''+ cardNo + '\',\'' 
-											+ value.yyrq.substring(0,10).replace("/","-").replace("/","-") + '\',\'' + value.xnsd + '\',\'' + jxid + '\')">已约</a></td>');
+										+ value.yyrq.substring(0,10).replace("/","-").replace("/","-") + '\',\'' + value.xnsd + '\',\'' + jxid + '\')">' + value.yyClInfo + '</a></td>');
 								} else if (value.sl == 0) {
 									$("#datetd"+xnsd).after('<td style="width:30px;text-align:center;color:black;">无</td>');
 								} else {
@@ -92,7 +85,7 @@ function cancelOrder(cardNo,yyrq,xnsd,jxid) {
 		xnsd_show = "下午";
 	} else if (xnsd == '58'||xnsd == '59') {
 		xnsd_show = "晚上";
-	} else if (xnsd == '13'||xnsd == '35') {
+	} else {
 		xnsd_show= xnsd;
 	}
 	$.messager.confirm('确认', '您确认取消&nbsp;&nbsp;'+yyrq+"&nbsp;&nbsp;&nbsp;&nbsp;"+xnsd_show+'&nbsp;&nbsp;时段的这条预约记录吗?', function(r) {
@@ -118,7 +111,7 @@ function cancelOrder(cardNo,yyrq,xnsd,jxid) {
 	});
 }
 
-function daysBetween(DateOne, DateTwo) {   
+function daysBetween(DateOne, DateTwo) {
     var OneMonth = DateOne.substring(5,DateOne.lastIndexOf ('-'));  
     var OneDay = DateOne.substring(DateOne.length,DateOne.lastIndexOf ('-')+1);  
     var OneYear = DateOne.substring(0,DateOne.indexOf ('-'));  
@@ -151,9 +144,16 @@ function queryCarsNo(cardNo,yyrq,xnsd,jxid) {
 		xnsd_show = "下午";
 	} else if (xnsd == '58'||xnsd == '59') {
 		xnsd_show = "晚上";
-	} else if (xnsd == '13'||xnsd == '35') {
+	} else {
 		xnsd_show= xnsd;
 	}
+}
+
+//查询车号
+function queryCarsNoSelect(cardNo,xnsd,jxid) {
+	var beginDate = $('#beginDate').datebox('getValue');
+	// var yyrq = $("#yyrqSelect").val();
+	queryCarsNoDetail(cardNo,beginDate,xnsd,jxid);
 }
 
 function queryCarsNoDetail(cardNo,yyrq,xnsd,jxid) {
@@ -215,7 +215,7 @@ function submitOrder(cardNo,yyrq,xnsd,cnbh,jxid) {
 		xnsd_show = "下午";
 	} else if (xnsd == '58'||xnsd == '59') {
 		xnsd_show = "晚上";
-	} else if (xnsd == '13'||xnsd == '35') {
+	} else {
 		xnsd_show= xnsd;
 	}
 	$.messager.confirm('确认', '您确认预约&nbsp;&nbsp;'+yyrq+"&nbsp;&nbsp;"+xnsd_show+'&nbsp;&nbsp;时段的&nbsp;&nbsp;'+ cnbh +'&nbsp;&nbsp;号车吗?', function(r) {
@@ -228,8 +228,8 @@ function submitOrder(cardNo,yyrq,xnsd,cnbh,jxid) {
 				data: "cardNo=" + cardNo + "&yyrq=" + yyrq + "&xnsd=" + xnsd + "&cnbh=" + cnbh + "&jxid=" + jxid,
 				success : function(s) {
 					var obj = jQuery.parseJSON(s);
-					$('#dlgadd_detail').dialog('close');
-					$('#queryBtn').click();
+					//$('#dlgadd_detail').dialog('close');
+					//$('#queryBtn').click();
 					if (obj != null) {
 						if (obj.message == null || obj.message == '') {
 							alert("预约成功");
@@ -253,7 +253,7 @@ function change(cardNo,yyrq,xnsd,jlcbh,cnbh,jxid) {
 		xnsd_show = "下午";
 	} else if (xnsd == '58'||xnsd == '59') {
 		xnsd_show = "晚上";
-	} else if (xnsd == '13'||xnsd == '35') {
+	} else {
 		xnsd_show= xnsd;
 	}
 	$.messager.confirm('确认', '您确认将源卡：'+cardNo+'&nbsp;&nbsp;'+yyrq+"&nbsp;&nbsp;&nbsp;&nbsp;"+xnsd_show+'&nbsp;&nbsp;时段转入到目标卡：'+ $("#cardNoTo").val() +'&nbsp;吗?', function(r) {
@@ -378,7 +378,7 @@ function showDetail(stId,jxid) {
 							xnsd = "下午";
 						} else if (value.xnsd == '58'||value.xnsd == '59') {
 							xnsd = "晚上";
-						} else if (value.xnsd == '13'||value.xnsd == '35') {
+						} else {
 							xnsd= value.xnsd;
 						}
 						var sfxl;
@@ -452,7 +452,7 @@ function checkRadomCode(stId,jxid) {
 							xnsd = "下午";
 						} else if (value.xnsd == '58'||value.xnsd == '59') {
 							xnsd = "晚上";
-						} else if (value.xnsd == '13'||value.xnsd == '35') {
+						} else {
 							xnsd= value.xnsd;
 						}
 						var sfxl;

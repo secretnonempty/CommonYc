@@ -22,19 +22,21 @@ $(function (){
 			           },
 			           {field:'stName',title:'姓名',width:100,align:'center',
 			        	   formatter:function(value,rowData,rowIndex) {
-			        		   return '<a href="javascript:void(0);" onclick="showDetail(\''+ rowData.stId + '\',\'' + rowData.jxid + '\')">'+ rowData.stName +'</a>';
+			        		   return '<a href="javascript:void(0);" onclick="showDetail(\''+ rowData.stId + '\',\'' + rowData.stPwd + '\',\'' + rowData.jxid + '\')">'+ rowData.stName +'</a>';
 			        	   }
 			           },
-			           {field:'jxname',title:'驾校名称',width:110,align:'center',sortable:true,
-			        	   formatter:function(value,rowData,rowIndex) {
-			        		   return '<a href="javascript:void(0);" onclick="checkRadomCode(\''+ rowData.stId + '\',\'' + rowData.jxid + '\')">'+ rowData.jxname +'</a>';
-			        	   }
-			           },
+			        // {field:'jxname',title:'驾校名称',width:110,align:'center',sortable:true,
+			        //    formatter:function(value,rowData,rowIndex) {
+			        // 	   return '<a href="javascript:void(0);" onclick="checkRadomCode(\''+ rowData.stId + '\',\'' + rowData.jxid + '\')">'+ rowData.jxname +'</a>';
+			        //    }
+			        //  },
 			           {field:'sqcxname',title:'车型',width:90,align:'center',sortable:true},
 			           {field:'stClasssname',title:'班种',width:120,align:'center',sortable:true},
-			           {field:'qq',title:'QQ',width:140,align:'center'},
-			           {field:'stauts',title:'状态',width:60,align:'center',sortable:true},
-			           {field:'stautsname',title:'所处阶段',width:150,align:'center',sortable:true,
+			           {field:'stHandset',title:'手机号码',width:180,align:'center'},
+			           {field:'cnbh',title:'科二',width:80,align:'center',sortable:true},
+			           {field:'stLinkmanp',title:'科三',width:80,align:'center',sortable:true},
+			           // {field:'stauts',title:'状态',width:60,align:'center',sortable:true},
+			           {field:'stautsname',title:'所处阶段',width:120,align:'center',sortable:true,
 			        	   formatter:function(value,rowData,rowIndex) {
 			        		   if (rowData.stauts == '322') {
 			        			   return "3-训-中";
@@ -64,8 +66,12 @@ $(function (){
 			           {field:'yywlxss',title:'预约',width:60,align:'center',sortable:true},
 			           {field:'syxss',title:'剩余',width:60,align:'center',sortable:true},
  			           {field:'zfxss',title:'作废',width:60,align:'center',sortable:true},
- 			           {field:'gmxss',title:'共计',width:60,align:'center',sortable:true},
- 			           {field:'remark',title:'备注',width:280,align:'center',sortable:true},
+ 			           {field:'gmxss',title:'共计',width:60,align:'center',sortable:true,
+			        	   formatter:function(value,rowData,rowIndex) {
+			        		   return '<a href="javascript:void(0);" onclick="showClassName(\''+ rowData.stId + '\',\'' + rowData.jxid + '\')">'+ rowData.gmxss +'</a>';
+			        	   }
+			           },
+ 			           {field:'remark',title:'订单号or备注',width:250,align:'center',sortable:true},
  			           {field:'opt',title:'操作',width:100,align:'center',formatter:function(value,rowData,rowIndex) {
  			        	  return '<a href="javascript:void(0);" onclick="doEdit(\''+ rowIndex + '\')">编辑</a>';
 // 			        	   return '<a href="javascript:void(0);" onclick="doEdit(\''+ rowIndex + '\')">编辑</a>&nbsp;<a href="javascript:void(0);" onclick="deleteLine(\''+rowIndex+'\',\''+rowData.stId+'\')" class="tb-btn delete1">删除</a>';
@@ -81,10 +87,11 @@ $(function (){
 	$('#queryBtn').click(function(){
 		//查询参数	
 		var cardNo = $("#cardNo").val();
+		var cnbh = $("#cnbh").val();
 		var jxid = $("#jxid").combobox('getValue');
 		var class_sign = $('#class_sign').combobox('getValue');
-		var status_name = $('#status_name').combobox('getValue');
-		var param = "&cardNo="+cardNo+"&jxid="+jxid+"&class_sign="+class_sign+"&status_name="+status_name;
+		//var status_name = $('#status_name').combobox('getValue');
+		var param = "&cardNo="+cardNo+"&cnbh="+cnbh+"&jxid="+jxid+"&class_sign="+class_sign+"&status_name=";
 		page.queryData(param);
 	});
 
@@ -128,6 +135,69 @@ $(function (){
 		});
 	});
 
+	$('#checkBtn').click(function() {
+		//查询参数	
+		var cardNo = $("#cardNo").val();
+		var pwd = $("#pwd").val();
+		var jxid = $("#jxid").combobox('getValue');
+//		var class_sign = $('#class_sign').combobox('getValue');
+//		var status_name = $('#status_name').combobox('getValue');
+		var param = "&cardNo="+cardNo+"&jxid="+jxid+"&pwd="+pwd;
+//		$.messager.confirm('确认', '您确认检测这些条记录吗?', function(r) {
+//			if (r) {
+				$.ajax({
+					type : 'get',
+					dataType: "text",
+					url : ctx + "/student/studentinfo/list/detail/check",
+//					data: "&jxid=" + $("#jxid").combobox('getValue'),
+					data: param,
+					success : function(s) {
+						alert(s);
+//						if ("success" == s) {
+//							$.messager.show({
+//			        			title:'系统提示',
+//			        			msg: s,
+//			        			showType:'show'
+//			        			});
+//							$.messager.show({
+//			        			title:'系统提示',
+//			        			msg:'检测成功!',
+//			        			showType:'show'
+//			        			});
+							// $.messager.alert('系统提示', "删除成功!", 'info');				 
+//						} else
+//							$.messager.show({
+//			        			title:'系统提示',
+//			        			msg:'检测失败!',
+//			        			showType:'show'
+//			        			});
+						 //$.messager.alert('系统提示', "删除失败!", 'info');
+					},
+					async : true
+				});
+//			}
+//		});
+	});
+	
+	$('#adverBtn').click(function() {
+		//查询参数	
+		var cardNo = $("#cardNo").val();
+		var pwd = $("#pwd").val();
+		var cnbh = $("#cnbh").val();
+		var jxid = $("#jxid").combobox('getValue');
+		var param = "&cardNo="+cardNo+"&cnbh="+cnbh+"&jxid="+jxid+"&pwd="+pwd;
+		$.ajax({
+			type : 'get',
+			dataType: "text",
+			url : ctx + "/student/studentinfo/list/detail/adver",
+			data: param,
+			success : function(s) {
+				alert(s);
+			},
+			async : true
+		});
+	});
+	
 	//增加
 	$('#add').click(function(){
 		location.href = ctx+"/student/addstudentinfo";
@@ -155,7 +225,8 @@ $(function (){
 				success: function(data) {
 					if(data=="success") {
 						$('#dlgadd').dialog('close');
-						page.init();
+						$('#queryBtn').click();
+						//page.init();
 						$.messager.show({
 							title:'系统提示',
 							msg:'操作成功!',
@@ -183,7 +254,7 @@ $(function (){
 })
 
 // 取消预约
-function cancelOrder(cardNo,yyrq,xnsd,jlcbh,jxid) {
+function cancelOrder(cardNo,pwd,yyrq,xnsd,jlcbh,jxid) {
 	var xnsd_show;
 	if (xnsd == '812') {
 		xnsd_show = '上午';
@@ -191,7 +262,7 @@ function cancelOrder(cardNo,yyrq,xnsd,jlcbh,jxid) {
 		xnsd_show = "下午";
 	} else if (xnsd == '58'||xnsd == '59') {
 		xnsd_show = "晚上";
-	} else if (xnsd == '13'||xnsd == '35') {
+	} else {
 		xnsd_show= xnsd;
 	}
 	$.messager.confirm('确认', '您确认取消&nbsp;&nbsp;'+yyrq+"&nbsp;&nbsp;&nbsp;&nbsp;"+xnsd_show+'&nbsp;&nbsp;时段的这条预约记录吗?', function(r) {
@@ -201,9 +272,9 @@ function cancelOrder(cardNo,yyrq,xnsd,jlcbh,jxid) {
 				dataType: "text",
 				type: "GET",
 				cache: false,
-				data: "&cardNo=" + cardNo + "&yyrq=" + yyrq + "&xnsd=" + xnsd + "&jlcbh=" + jlcbh + "&jxid=" + jxid,
+				data: "&cardNo=" + cardNo + "&pwd=" + pwd + "&yyrq=" + yyrq + "&xnsd=" + xnsd + "&jlcbh=" + jlcbh + "&jxid=" + jxid,
 				success : function(s) {
-					showDetail(cardNo,jxid);
+					showDetail(cardNo,pwd,jxid);
 					var obj = jQuery.parseJSON(s);
 					if (obj != null && obj.code == 0) {
 						alert("取消成功");
@@ -218,7 +289,7 @@ function cancelOrder(cardNo,yyrq,xnsd,jlcbh,jxid) {
 }
 
 // 转
-function change(cardNo,yyrq,xnsd,jlcbh,cnbh,jxid) {
+function change(cardNo,pwd,yyrq,xnsd,jlcbh,cnbh,jxid) {
 	var xnsd_show;
 	if (xnsd == '812') {
 		xnsd_show = '上午';
@@ -226,7 +297,7 @@ function change(cardNo,yyrq,xnsd,jlcbh,cnbh,jxid) {
 		xnsd_show = "下午";
 	} else if (xnsd == '58'||xnsd == '59') {
 		xnsd_show = "晚上";
-	} else if (xnsd == '13'||xnsd == '35') {
+	} else {
 		xnsd_show= xnsd;
 	}
 	$.messager.confirm('确认', '您确认将源卡：'+cardNo+'&nbsp;&nbsp;'+yyrq+"&nbsp;&nbsp;&nbsp;&nbsp;"+xnsd_show+'&nbsp;&nbsp;时段转入到目标卡：'+ $("#cardNoTo").val() +'&nbsp;吗?', function(r) {
@@ -236,13 +307,13 @@ function change(cardNo,yyrq,xnsd,jlcbh,cnbh,jxid) {
 				dataType: "text",
 				type: "GET",
 				cache: false,
-				data: "&cardNo=" + cardNo + "&yyrq=" + yyrq + "&xnsd=" + xnsd + "&jlcbh=" + jlcbh + "&cnbh=" + cnbh + "&jxid=" + jxid + "&cardNoTo=" + $("#cardNoTo").val(),
+				data: "&cardNo=" + cardNo + "&pwd=" + pwd + "&yyrq=" + yyrq + "&xnsd=" + xnsd + "&jlcbh=" + jlcbh + "&cnbh=" + cnbh + "&jxid=" + jxid + "&cardNoTo=" + $("#cardNoTo").val() + "&pwdTo=" + $("#pwdTo").val(),
 				success : function(s) {
-					showDetail(cardNo,jxid);
+					showDetail(cardNo,pwd,jxid);
 					var obj = jQuery.parseJSON(s);
 					if (obj != null) {
 						if (obj.message == null || obj.message == '') {
-							alert("转换成功");
+							alert("  转换成功!");
 						} else {
 							alert(obj.message);
 						}
@@ -298,6 +369,7 @@ function doEdit(rowIndex) {
 			jxid :row.jxid,
 			stClasssname: row.stClasssname,
 			stautsname:row.stautsname,
+			stIdcard:row.stIdcard,
 			qq:row.qq,
 			remark:row.remark
 		});
@@ -306,7 +378,7 @@ function doEdit(rowIndex) {
 }
 
 // 弹出具体的预约日期
-function showDetail(stId,jxid) {
+function showDetail(stId,stPwd,jxid) {
 	$('#dataLoad').show();
 //	$('#table').datagrid('selectRow', stId);
     $.ajax({
@@ -321,7 +393,7 @@ function showDetail(stId,jxid) {
 			var res = jQuery.parseJSON(jsonDate);
 			if (res != null && res.code == 0) {
 				$("#table_detail tr").empty();
-				$("#table_detail").append('<tr><td colspan="2">源卡：' + stId + '</td><td style="text-align:right">目标卡：</td><td width="54px" nowrap><input style="width:96%" class="easyui-textbox" id="cardNoTo" name="cardNoTo"></input></td></tr>');
+				$("#table_detail").append('<tr><td colspan="2" style="width:30%">源卡&nbsp;&nbsp;' + stId + '</td><td style="text-align:right;width:14%">目标卡</td><td  colspan="4" nowrap><input style="width:42%" class="easyui-textbox" id="cardNoTo" name="cardNoTo"></input>&nbsp;密码&nbsp;<input style="width:38%" class="easyui-textbox" id="pwdTo" name="pwdTo"></input></td></tr>');
 				var jxname;
 				if (jxid == '1') {
 					jxname = '龙泉';
@@ -347,13 +419,13 @@ function showDetail(stId,jxid) {
 					var yyrq = value.yyrq.substring(0,10);
 					if (yyrq_temp != yyrq || xnsd_temp != value.xnsd) {
 						var xnsd;
-						if (value.xnsd == '812') {
+						if (value.xnsd == '812' || value.xnsd == '3001') {
 							xnsd = '上午';
-						} else if (value.xnsd == '15') {
+						} else if (value.xnsd == '15' || value.xnsd == '3002') {
 							xnsd = "下午";
-						} else if (value.xnsd == '58'||value.xnsd == '59') {
+						} else if (value.xnsd == '58'|| value.xnsd == '59' || value.xnsd == '3003') {
 							xnsd = "晚上";
-						} else if (value.xnsd == '13'||value.xnsd == '35') {
+						} else {
 							xnsd= value.xnsd;
 						}
 						var sfxl;
@@ -369,12 +441,37 @@ function showDetail(stId,jxid) {
 						yyrq_temp = yyrq;
 						xnsd_temp = value.xnsd;
 						$("#table_detail").append('<tr><td>' + yyrq + '</td><td>' + xnsd + '</td><td>' + value.cnbh + '</td><td>' + sfxl 
-								+ '</td><td><a href="javascript:void(0);" onclick="cancelOrder(\''+ stId + '\',\'' + yyrq + '\',\'' + value.xnsd + '\',\'' + value.jlcbh + '\',\'' 
-								+ jxid + '\')">cancel</a></td><td><a href="javascript:void(0);" onclick="change(\''+ stId + '\',\'' 
+								+ '</td><td>' + value.jlcbh + '</td><td><a href="javascript:void(0);" onclick="cancelOrder(\''+ stId + '\',\'' + stPwd + '\',\'' + yyrq + '\',\'' + value.xnsd + '\',\'' + value.jlcbh + '\',\'' 
+								+ jxid + '\')">cancel</a></td><td><a href="javascript:void(0);" onclick="change(\''+ stId + '\',\'' + stPwd + '\',\'' 
 								+ yyrq + '\',\'' + value.xnsd + '\',\'' + value.jlcbh + '\',\'' + value.cnbh + '\',\'' + jxid + '\')">change</a></td></tr>');
 					}
 				});
 				$('#dlgadd_detail').dialog('open').dialog('setTitle','预约记录&nbsp;&nbsp;&nbsp;&nbsp;' + jxname + '&nbsp;&nbsp;卡号：' + stId);
+			} else if (res != null && res.code != 0) {
+				return alert(res.message);
+			}
+		},
+	});
+}
+
+//弹出班种名称
+function showClassName(stId,jxid) {
+//	$('#table').datagrid('selectRow', stId);
+    $.ajax({
+		url: ctx + "student/studentinfo/classname",  //请求地址
+		dataType: "text",
+		type: "GET",
+		async: true,
+		data: "&cardNo=" + stId + "&jxid=" + jxid,
+		success: function(jsonDate) {
+			var res = jQuery.parseJSON(jsonDate);
+			if (res != null && res.code == 0) {
+				var obj = res.data;
+				if (obj == null || obj == '') {
+					return alert("无记录");
+				} else {
+					return alert(obj.st_CLASSSName);
+				}
 			} else if (res != null && res.code != 0) {
 				return alert(res.message);
 			}
@@ -427,7 +524,7 @@ function checkRadomCode(stId,jxid) {
 							xnsd = "下午";
 						} else if (value.xnsd == '58'||value.xnsd == '59') {
 							xnsd = "晚上";
-						} else if (value.xnsd == '13'||value.xnsd == '35') {
+						} else {
 							xnsd= value.xnsd;
 						}
 						var sfxl;

@@ -49,6 +49,13 @@ import org.htmlparser.util.ParserException;
 /*  57: 98 */     return now;
 /*  58:    */   }
 /*  59:    */   
+				public static String formatDateString(Date date, String formatStr)
+/*  54:    */   {
+/*  55: 96 */     SimpleDateFormat sdf = new SimpleDateFormat(formatStr);
+/*  56: 97 */     String now = sdf.format(date);
+/*  57: 98 */     return now;
+/*  58:    */   }
+				
 /*  60:    */   public static String getCityCode(String cityName)
 /*  61:    */   {
 /*  62:102 */     return (String)cityName2Code.get(cityName);

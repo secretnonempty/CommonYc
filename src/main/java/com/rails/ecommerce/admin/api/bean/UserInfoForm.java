@@ -67,6 +67,10 @@ public class UserInfoForm implements Serializable {
 	
 	private String xm;
 
+	private String usertype;
+	
+	private String clientCode;
+
 	public String getUserName() {
 		return userName;
 	}
@@ -259,5 +263,19 @@ public class UserInfoForm implements Serializable {
 		this.xm = xm;
 	}
 
+	public String getUsertype() {
+		return usertype;
+	}
 
+	public void setUsertype(String usertype) {
+		this.usertype = usertype;
+	}
+
+	public String getClientCode() {
+		return clientCode;
+	}
+
+	public void setClientCode(String clientCode) {
+		this.clientCode = clientCode;
+	}
 }

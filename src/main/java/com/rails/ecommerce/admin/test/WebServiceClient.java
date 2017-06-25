@@ -2,9 +2,6 @@ package com.rails.ecommerce.admin.test;
 
 import javax.ws.rs.core.MultivaluedMap;
 
-import org.codehaus.jettison.json.JSONObject;
-
-import com.rails.ecommerce.core.common.domain.SystemMenu;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;

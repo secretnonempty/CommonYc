@@ -39,12 +39,25 @@ public class BookController {
 	Logger log = Logger.getLogger(getClass());
 
 	private SentClient client = null;
-
+	
 	private DefaultHttpClient httpClient = null;
 
 	@Resource(name = "StudentServiceImpl")
 	private StudentService studentService;
 
+	public BookController () {
+		
+		ThreadSafeClientConnManager tcm = new ThreadSafeClientConnManager();
+		tcm.setMaxTotal(10);
+		this.httpClient = new DefaultHttpClient(tcm);
+		this.httpClient
+		.getParams()
+		.setParameter(
+				"User-Agent",
+				"Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; Trident/5.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; TEN)");
+		this.client = new SentClient(this.httpClient);
+	}
+	
 	/**
 	 * 页面跳转 Function:
 	 * 
@@ -71,21 +84,21 @@ public class BookController {
 		return model;
 	}
 
-	private void initNetwork() {
-		try {
-			ThreadSafeClientConnManager tcm = new ThreadSafeClientConnManager();
-			tcm.setMaxTotal(10);
-			this.httpClient = new DefaultHttpClient(tcm);
-			this.httpClient
-					.getParams()
-					.setParameter(
-							"User-Agent",
-							"Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; Trident/5.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; TEN)");
-			this.client = new SentClient(this.httpClient);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}
+//	private void initNetwork() {
+//		try {
+//			// ThreadSafeClientConnManager tcm = new ThreadSafeClientConnManager();
+//			// tcm.setMaxTotal(10);
+//			// this.httpClient = new DefaultHttpClient(tcm);
+//			this.httpClient
+//					.getParams()
+//					.setParameter(
+//							"User-Agent",
+//							"Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; Trident/5.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; TEN)");
+//			this.client = new SentClient(this.httpClient);
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * 获得初始化列表 Function:
@@ -100,11 +113,14 @@ public class BookController {
 	public Result<LeftCarCountForm> booklist(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		String cardNo = request.getParameter("cardNo");
+		String pwd = request.getParameter("pwd");
 		String jxid = request.getParameter("jxid");
-
-		this.initNetwork();
+		
+		// this.initNetwork();
 		Gson g = new Gson();
 		String res = null;
+		this.client.getLoginInfo(cardNo, pwd, jxid);
+		
 		if (cardNo != null && !"".equals(cardNo)) {
 			res = this.client.getLeftCarCount(cardNo, jxid);
 			if (res != null && !"".equals(res)) {
@@ -145,8 +161,9 @@ public class BookController {
 		String xnsd = request.getParameter("xnsd");
 		String jxid = request.getParameter("jxid");
 		
-		this.initNetwork();
+		// this.initNetwork();
 		Gson g = new Gson();
+		
 		String res = null;
 		if (cardNo != null && !"".equals(cardNo)) {
 			res = this.client.getCarsNo(cardNo, yyrq, xnsd, jxid);
@@ -189,8 +206,9 @@ public class BookController {
 		String cnbh = request.getParameter("cnbh");
 		String jxid = request.getParameter("jxid");
 		
-		this.initNetwork();
+		// this.initNetwork();
 		Gson g = new Gson();
+		
 		String res = null;
 		if (cardNo != null && !"".equals(cardNo)) {
 			res = this.client.submitOrder(cardNo, cnbh, yyrq, xnsd, jxid);
@@ -230,7 +248,7 @@ public class BookController {
 		String cardNo = request.getParameter("cardNo");
 		String jxid = request.getParameter("jxid");
 
-		this.initNetwork();
+		// this.initNetwork();
 		Gson g = new Gson();
 		String res = null;
 		if (cardNo != null && !"".equals(cardNo)) {
@@ -272,8 +290,8 @@ public class BookController {
 		String yyrq = request.getParameter("yyrq");
 		String xnsd = request.getParameter("xnsd");
 		String jxid = request.getParameter("jxid");
-
-		this.initNetwork();
+		
+		// this.initNetwork();
 		Gson g = new Gson();
 		String res = null;
 		Result<OrderRecordForm> detail = null;
@@ -348,7 +366,7 @@ public class BookController {
 		String jxid = request.getParameter("jxid");
 		String cardNoTo = request.getParameter("cardNoTo");
 		yyrq = yyrq.replace("/", "-");
-		this.initNetwork();
+		// this.initNetwork();
 		Gson g = new Gson();
 		String res = null;
 		String resTo = null;
@@ -475,7 +493,7 @@ public class BookController {
 		String qq = request.getParameter("qq"); // qq
 		String remark = request.getParameter("remark"); // 备注
 
-		this.initNetwork();
+		// this.initNetwork();
 		Gson g = new Gson();
 		String res = null;
 		if (stId != null && !"".equals(stId)) {

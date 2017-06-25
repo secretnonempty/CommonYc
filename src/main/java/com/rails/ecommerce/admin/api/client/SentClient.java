@@ -23,6 +23,7 @@ import org.apache.log4j.Logger;
 
 import com.rails.ecommerce.admin.api.Constants;
 import com.rails.ecommerce.admin.api.Util;
+import com.rails.ecommerce.admin.utils.MD5CheckUtil;
 
 /*  40:    */ public class SentClient
 /*  41:    */ {
@@ -35,7 +36,14 @@ import com.rails.ecommerce.admin.api.Util;
 /*  48:    */   {
 /*  49: 76 */     this.httpclient = client;
 /*  50: 77 */     client.getParams().setParameter("User-Agent", "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; Trident/5.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; TEN)");
-/*  51:    */   }
+//client.getParams().setParameter("Host", "longquanapi.xuechebu.com");
+//client.getParams().setParameter("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+//client.getParams().setParameter("Accept-Language", "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
+//client.getParams().setParameter("Accept-Encoding", "gzip, deflate");
+//client.getParams().setParameter("Cookie", "Hm_lvt_96e300ac751ea8e740710f93edc83f12=1462385319,1462448006; yunsuo_session_verify=06423723aae9efc9f335c007d1d3fbe6; Webapi_LoginOn=cwNWsuPAU43s6mgIz3fipaYth+Var+ecQEKrDz8NCR/jQyXfhRQjliVMNUe8MM9Lpy13TwiuWCiOhMcMUGxrVIGcE60KwGkjUTJvWsS+DPjDuylMi7/mm9gM4lFSbvY6tUzSFFlHsuJXMBwfSPP/MivoStmz8iPlZAcSZyxSse4hY8YRiaTTzS9bZd19tfSKdsv5avG+XgUYJ6hySAJcPMK81SQl2XykjYaEW4+03RLHYYNKiXKi2oC9Pea71tM6XlmnS6so4vashNIEB95Aplc/9BKYBAt7LhC7An68P+Qh1x6j9TjmGcv85ym6dUQ8VDbXd7ltDGxAKlhY9P9v7qJ8uveybfa+1QJphrPPpNHYN9Pebr0afCMmc2H/LCQqfpm1WPHejdJZiIAINtg5nynxl/ByX4t1HJhR141wVLO5M3ZLMrthpdZ5ziLMjJPv3487SmicrssFo7a0a9W/4C5aguWI9BDtQVRD0woVQRESmh/R/qYk5b3KhEw7N+VllS3qxn04E3KfR7ZxFScWrxrun2MNeY++wYSxDU6tzbrDnshZy4JG3h9bQMu0EjlKL1tl3X219Iopr7fmaJJ9anRQ+EJXj7/9BjsRafkERUVwwQ5QXTkpKNVU+q1ihCNOYhXbp3fZFdMWtQaDI60vGUKyYNEUDC+VrnbddHQ4MhBfBWQxMv572scsVt8vVOj314Wci1uepcPtSpnVZnzX0YFno/+RI2GQH+R2KuvzygtkBxJnLFKx7vAGQwZ+iik9tc7BJKzFjmSdF6wI5lgwkySMpaXpS7NKdcuy0Rg5U6DB64AYS1HUWTOIZu7WsAmuysfbBnWds42Sx12jypwy7J0UCHNWOIlPne7TYilLVA14dR7QgPrDxw3757r3WQXiCOBZfM84NBreQIj+UDwb0ZKbavRBx/uLR374D1yJVhdi6Wqu7Z0F5q9s5mOPI1hSMUe7BNghqTow7Mgw5S9qp+r9jpOPK14lPxtPDcrbYqQoQYFJkdOGZGQHEmcsUrHu6Szuv3Z9nClvatXG9drJuqJXJV19a8mN/FmAGLA4uuuUHWvnbuBOByn9ItO9LNqEY37+bNJC/fZRXIVSibodW3B0xn5N5cD97YnwCJZiUiuMeBeMtsP/BBtGBH0vMG7mqME+0bTrUfo=; Webapi_LoginOn_client=%7b%0d%0a%20%20%22userName%22%3a%20%2215101006612%22%2c%0d%0a%20%20%22phoneNum%22%3a%20%2215101006612%22%2c%0d%0a%20%20%22nickName%22%3a%20%22%e7%94%a8%e6%88%b7_8201%22%2c%0d%0a%20%20%22Id%22%3a%20%22724229%22%2c%0d%0a%20%20%22os%22%3a%20null%2c%0d%0a%20%20%22email%22%3a%20null%2c%0d%0a%20%20%22password%22%3a%20null%2c%0d%0a%20%20%22passwordmd5%22%3a%20%22d3437992cbb0580066e4f2a5d4a57b2c%22%2c%0d%0a%20%20%22authemail%22%3a%20null%2c%0d%0a%20%20%22xxzh%22%3a%20%2251660038%22%2c%0d%0a%20%20%22jgid%22%3a%20%22117001%22%2c%0d%0a%20%20%22webapiurl%22%3a%20null%2c%0d%0a%20%20%22xybh%22%3a%20%221170316820%22%2c%0d%0a%20%20%22sfzh%22%3a%20%22412828199804204236%22%2c%0d%0a%20%20%22jxcode%22%3a%20%22110108035%22%2c%0d%0a%20%20%22schoolpwd%22%3a%20%2219980420%22%2c%0d%0a%20%20%22iconpath%22%3a%20null%2c%0d%0a%20%20%22username%22%3a%20%2215101006612%22%2c%0d%0a%20%20%22phonenum%22%3a%20%2215101006612%22%2c%0d%0a%20%20%22nickname%22%3a%20%22%e7%94%a8%e6%88%b7_8201%22%2c%0d%0a%20%20%22qquid%22%3a%20null%2c%0d%0a%20%20%22sinauid%22%3a%20null%2c%0d%0a%20%20%22apiurl%22%3a%20%22bookingcarapi%3a%3ahttp%3a%2f%2flongquanapi.xuechebu.com%22%2c%0d%0a%20%20%22apiurlios%22%3a%20%22https%3a%2f%2flongquanapi.xuechebu.com%22%2c%0d%0a%20%20%22jxmc%22%3a%20%22%e9%be%99%e6%b3%89%e9%a9%be%e6%a0%a1%22%2c%0d%0a%20%20%22xm%22%3a%20%22%e6%9d%8e%e9%9d%92%e6%99%93%22%2c%0d%0a%20%20%22usertype%22%3a%20%221%22%2c%0d%0a%20%20%22clientCode%22%3a%20null%2c%0d%0a%20%20%22dz%22%3a%20null%2c%0d%0a%20%20%22SQCX%22%3a%20%22C1%22%2c%0d%0a%20%20%22SSBX%22%3a%20%22%e5%b9%b3%e6%97%a5%e7%8f%ad%22%2c%0d%0a%20%20%22BackgroundImage%22%3a%20%22%22%2c%0d%0a%20%20%22HandImage%22%3a%20%22%22%0d%0a%7d; JX_LoginOn=tHuIebKocq4joXX/W+I7WVeWlp1AD5vaMboCCJ16XDY6SCTR5z3H1qoCerXsZCuWqJ1DaxQtJ/+sDbNWMGtE3A7xgeioKBwv8M/+7iZdBjRinklVWc2MK3zx2aULiPmH6s97dpDf5FVECQanmf9YxaZPTQotCXVN0evf0sMEsssjtDYdIWsdb2jcZP1kvfqMcderfZ16oblkZERN+TXb35JcZSct4jujIZoKauiHj+wov8GuuFpEZMiXFB+ha42yjdZNIiyxAAnShhZseZJgK0tFJkzL2X++kkHaGshi1xTHuVi7BPRWtaI2R8vrTXTNlxcpUIB7XUrEeVmw97NGCokxrPgkkDKcQjJe73KQtSfuRSfkzqOQhg0h+z54reIS29iTqXMXfvhqH6KxMVr9iQ==");
+//client.getParams().setParameter("Connection", "keep-alive");
+//client.getParams().setParameter("Cache-Control", "max-age=0");
+}
 /*  52:    */   
 				
 				public String getUrl(String urlName, String jxFlag) {
@@ -52,12 +60,290 @@ import com.rails.ecommerce.admin.api.Util;
 						  request_url = Constants.XF_URL + urlName;
 					  } else if ("6".equals(jxFlag)) {
 						  request_url = Constants.YD_URL + urlName;
+					  } else if ("7".equals(jxFlag)) {
+						  request_url = Constants.FS_URL + urlName;
+					  } else if ("8".equals(jxFlag)) {
+						  request_url = Constants.CJ_URL + urlName;
+					  } else if ("9".equals(jxFlag)) {
+						  request_url = Constants.LS_URL + urlName;
 					  } else {
 						  request_url = Constants.LQ_URL + urlName;
 					  }
 					return request_url;
 				}
 
+				public String getLoginInfo(String xxzh, String pwd, String jxFlag)
+/* 115:    */   {
+/* 116:135 */     this.log.debug("-------------------book start-------------------");
+///* 117:136 */     Result rs = new Result();
+				  String request_url = getUrl(Constants.USERLOGIN_URL, jxFlag);
+				  String jgid = "";
+				  String host = "";
+/* 118:137 */     HttpPost post = new HttpPost(request_url);
+	              if ("1".equals(jxFlag)) {//龙泉
+					jgid = "117001";
+					host = "longquanapi.xuechebu.com";
+				  } else if ("4".equals(jxFlag)) {//海驾
+					jgid = "115001";
+					host = "haijia.xuechebu.com:8008";
+				  } else if ("3".equals(jxFlag)) {//京都府
+					jgid = "112001";
+					host = "jingdufuapi.xuechebu.com";
+				  } else if ("5".equals(jxFlag)) {//新丰
+					jgid = "121001";
+					host = "xinfengapi.xuechebu.com";
+				  } else if ("6".equals(jxFlag)) {//远大
+					jgid = "118001";
+					host = "yuandaapi.xuechebu.com";
+				  } else if ("7".equals(jxFlag)) {//丰顺
+					jgid = "112001";
+					host = "fengshunapi.xuechebu.com";
+				  } else if ("8".equals(jxFlag)) {//长建
+					jgid = "112001";
+					host = "changjianapi.xuechebu.com:8008";
+				  }
+/* 119:138 */     List<NameValuePair> formparams = new ArrayList<NameValuePair>();
+/* 120:139 */     formparams.add(new BasicNameValuePair("xxzh", xxzh));
+				  formparams.add(new BasicNameValuePair("password", pwd));
+				  formparams.add(new BasicNameValuePair("jgid", jgid));
+/* 147:    */     String ans = null;
+				  try
+/* 148:    */     {
+/* 149:167 */       UrlEncodedFormEntity uef = new UrlEncodedFormEntity(formparams, "UTF-8");
+/* 150:168 */       post.setEntity(uef);
+/* 151:169 */       ResponseHandler<String> responseHandler = new BasicResponseHandler();
+/* 152:170 */       String responseBody = null;
+					post.setHeader("User-Agent", "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; Trident/5.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; TEN)");
+					post.setHeader("Host", host);
+					post.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+					post.setHeader("Accept-Language", "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
+					post.setHeader("Accept-Encoding", "gzip, deflate");
+					post.setHeader("Cookie", "Hm_lvt_96e300ac751ea8e740710f93edc83f12=1462385319,1462448006; yunsuo_session_verify=06423723aae9efc9f335c007d1d3fbe6; Webapi_LoginOn=cwNWsuPAU43s6mgIz3fipaYth+Var+ecQEKrDz8NCR/jQyXfhRQjliVMNUe8MM9Lpy13TwiuWCiOhMcMUGxrVIGcE60KwGkjUTJvWsS+DPjDuylMi7/mm9gM4lFSbvY6tUzSFFlHsuJXMBwfSPP/MivoStmz8iPlZAcSZyxSse4hY8YRiaTTzS9bZd19tfSKdsv5avG+XgUYJ6hySAJcPMK81SQl2XykjYaEW4+03RLHYYNKiXKi2oC9Pea71tM6XlmnS6so4vashNIEB95Aplc/9BKYBAt7LhC7An68P+Qh1x6j9TjmGcv85ym6dUQ8VDbXd7ltDGxAKlhY9P9v7qJ8uveybfa+1QJphrPPpNHYN9Pebr0afCMmc2H/LCQqfpm1WPHejdJZiIAINtg5nynxl/ByX4t1HJhR141wVLO5M3ZLMrthpdZ5ziLMjJPv3487SmicrssFo7a0a9W/4C5aguWI9BDtQVRD0woVQRESmh/R/qYk5b3KhEw7N+VllS3qxn04E3KfR7ZxFScWrxrun2MNeY++wYSxDU6tzbrDnshZy4JG3h9bQMu0EjlKL1tl3X219Iopr7fmaJJ9anRQ+EJXj7/9BjsRafkERUVwwQ5QXTkpKNVU+q1ihCNOYhXbp3fZFdMWtQaDI60vGUKyYNEUDC+VrnbddHQ4MhBfBWQxMv572scsVt8vVOj314Wci1uepcPtSpnVZnzX0YFno/+RI2GQH+R2KuvzygtkBxJnLFKx7vAGQwZ+iik9tc7BJKzFjmSdF6wI5lgwkySMpaXpS7NKdcuy0Rg5U6DB64AYS1HUWTOIZu7WsAmuysfbBnWds42Sx12jypwy7J0UCHNWOIlPne7TYilLVA14dR7QgPrDxw3757r3WQXiCOBZfM84NBreQIj+UDwb0ZKbavRBx/uLR374D1yJVhdi6Wqu7Z0F5q9s5mOPI1hSMUe7BNghqTow7Mgw5S9qp+r9jpOPK14lPxtPDcrbYqQoQYFJkdOGZGQHEmcsUrHu6Szuv3Z9nClvatXG9drJuqJXJV19a8mN/FmAGLA4uuuUHWvnbuBOByn9ItO9LNqEY37+bNJC/fZRXIVSibodW3B0xn5N5cD97YnwCJZiUiuMeBeMtsP/BBtGBH0vMG7mqME+0bTrUfo=; Webapi_LoginOn_client=%7b%0d%0a%20%20%22userName%22%3a%20%2215101006612%22%2c%0d%0a%20%20%22phoneNum%22%3a%20%2215101006612%22%2c%0d%0a%20%20%22nickName%22%3a%20%22%e7%94%a8%e6%88%b7_8201%22%2c%0d%0a%20%20%22Id%22%3a%20%22724229%22%2c%0d%0a%20%20%22os%22%3a%20null%2c%0d%0a%20%20%22email%22%3a%20null%2c%0d%0a%20%20%22password%22%3a%20null%2c%0d%0a%20%20%22passwordmd5%22%3a%20%22d3437992cbb0580066e4f2a5d4a57b2c%22%2c%0d%0a%20%20%22authemail%22%3a%20null%2c%0d%0a%20%20%22xxzh%22%3a%20%2251660038%22%2c%0d%0a%20%20%22jgid%22%3a%20%22117001%22%2c%0d%0a%20%20%22webapiurl%22%3a%20null%2c%0d%0a%20%20%22xybh%22%3a%20%221170316820%22%2c%0d%0a%20%20%22sfzh%22%3a%20%22412828199804204236%22%2c%0d%0a%20%20%22jxcode%22%3a%20%22110108035%22%2c%0d%0a%20%20%22schoolpwd%22%3a%20%2219980420%22%2c%0d%0a%20%20%22iconpath%22%3a%20null%2c%0d%0a%20%20%22username%22%3a%20%2215101006612%22%2c%0d%0a%20%20%22phonenum%22%3a%20%2215101006612%22%2c%0d%0a%20%20%22nickname%22%3a%20%22%e7%94%a8%e6%88%b7_8201%22%2c%0d%0a%20%20%22qquid%22%3a%20null%2c%0d%0a%20%20%22sinauid%22%3a%20null%2c%0d%0a%20%20%22apiurl%22%3a%20%22bookingcarapi%3a%3ahttp%3a%2f%2flongquanapi.xuechebu.com%22%2c%0d%0a%20%20%22apiurlios%22%3a%20%22https%3a%2f%2flongquanapi.xuechebu.com%22%2c%0d%0a%20%20%22jxmc%22%3a%20%22%e9%be%99%e6%b3%89%e9%a9%be%e6%a0%a1%22%2c%0d%0a%20%20%22xm%22%3a%20%22%e6%9d%8e%e9%9d%92%e6%99%93%22%2c%0d%0a%20%20%22usertype%22%3a%20%221%22%2c%0d%0a%20%20%22clientCode%22%3a%20null%2c%0d%0a%20%20%22dz%22%3a%20null%2c%0d%0a%20%20%22SQCX%22%3a%20%22C1%22%2c%0d%0a%20%20%22SSBX%22%3a%20%22%e5%b9%b3%e6%97%a5%e7%8f%ad%22%2c%0d%0a%20%20%22BackgroundImage%22%3a%20%22%22%2c%0d%0a%20%20%22HandImage%22%3a%20%22%22%0d%0a%7d; JX_LoginOn=tHuIebKocq4joXX/W+I7WVeWlp1AD5vaMboCCJ16XDY6SCTR5z3H1qoCerXsZCuWqJ1DaxQtJ/+sDbNWMGtE3A7xgeioKBwv8M/+7iZdBjRinklVWc2MK3zx2aULiPmH6s97dpDf5FVECQanmf9YxaZPTQotCXVN0evf0sMEsssjtDYdIWsdb2jcZP1kvfqMcderfZ16oblkZERN+TXb35JcZSct4jujIZoKauiHj+wov8GuuFpEZMiXFB+ha42yjdZNIiyxAAnShhZseZJgK0tFJkzL2X++kkHaGshi1xTHuVi7BPRWtaI2R8vrTXTNlxcpUIB7XUrEeVmw97NGCokxrPgkkDKcQjJe73KQtSfuRSfkzqOQhg0h+z54reIS29iTqXMXfvhqH6KxMVr9iQ==");
+					post.setHeader("Connection", "keep-alive");
+					post.setHeader("Cache-Control", "max-age=0");
+					post.setHeader("Referer", request_url);
+/* 153:    */       try
+/* 154:    */       {
+//						Header[] h = post.getAllHeaders();
+//						for (int i=0;i<h.length;i++) {
+//							System.out.println("#######################################");
+//							System.out.println(h[i].getName() + "    " + h[i].getValue());
+//							System.out.println("#######################################");
+//						}
+/* 156:173 */         this.httpclient.setRedirectStrategy(new DefaultRedirectStrategy()
+/* 157:    */         {
+/* 158:    */           public boolean isRedirected(HttpRequest request, HttpResponse response, HttpContext context)
+/* 159:    */           {
+/* 160:175 */             boolean isRedirect = false;
+/* 161:    */             try
+/* 162:    */             {
+/* 163:177 */               isRedirect = super.isRedirected(request, response, context);
+/* 164:    */             }
+/* 165:    */             catch (ProtocolException e)
+/* 166:    */             {
+/* 167:179 */               SentClient.this.log.error(e, e);
+/* 168:    */             }
+/* 169:181 */             if (!isRedirect)
+/* 170:    */             {
+/* 171:182 */               int responseCode = response.getStatusLine().getStatusCode();
+/* 172:183 */               if ((responseCode == 301) || (responseCode == 302)) {
+/* 173:184 */                 return true;
+/* 174:    */               }
+/* 175:    */             }
+/* 176:187 */             return isRedirect;
+/* 177:    */           }
+/* 178:189 */         });
+/* 179:190 */         responseBody = (String)this.httpclient.execute(post, responseHandler);
+/* 180:191 */         ans = Util.removeTagFromHtml(responseBody);
+///* 181:193 */         if ((ans != null) && (ans.indexOf("提交订单") > 0))
+///* 182:    */         {
+///* 183:194 */           rs.setCode("100");
+///* 184:195 */           rs.setMsg("");
+///* 185:    */         }
+///* 186:196 */         else if (responseBody.indexOf("目前您还有未处理的订单") > 0)
+///* 187:    */         {
+///* 188:197 */           rs.setCode("12");
+///* 189:198 */           rs.setMsg("目前您还有未处理的订单，还不快去支付!");
+///* 190:    */         }
+///* 191:    */         else
+///* 192:    */         {
+///* 193:200 */           rs.setMsg(ans);
+///* 194:    */         }
+/* 195:    */       }
+/* 196:    */       catch (Exception e)
+/* 197:    */       {
+/* 198:203 */         this.log.error(e, e);
+/* 199:    */       }
+/* 210:216 */       this.log.debug("-------------------book end-------------------");
+/* 211:    */     }
+/* 212:    */     catch (Exception e)
+/* 213:    */     {
+/* 214:206 */       this.log.error(e, e);
+/* 215:    */     }
+/* 229:217 */     return ans;
+/* 230:    */   }
+				
+				public String getXuechebuLoginInfo(String xxzh, String pwd)
+/* 115:    */   {
+/* 116:135 */     this.log.debug("-------------------book start-------------------");
+///* 117:136 */     Result rs = new Result();
+				  String request_url = "http://api.xuechebu.com/usercenter/userinfo/login";
+				  String host = "";
+/* 118:137 */     HttpPost post = new HttpPost(request_url);
+				  host = "api.xuechebu.com";
+/* 119:138 */     List<NameValuePair> formparams = new ArrayList<NameValuePair>();
+/* 120:139 */     formparams.add(new BasicNameValuePair("username", xxzh));
+				  formparams.add(new BasicNameValuePair("passwordmd5", MD5CheckUtil.toMd5(pwd)));
+/* 147:    */     String ans = null;
+				  try
+/* 148:    */     {
+/* 149:167 */       UrlEncodedFormEntity uef = new UrlEncodedFormEntity(formparams, "UTF-8");
+/* 150:168 */       post.setEntity(uef);
+/* 151:169 */       ResponseHandler<String> responseHandler = new BasicResponseHandler();
+/* 152:170 */       String responseBody = null;
+					post.setHeader("User-Agent", "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; Trident/5.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; TEN)");
+					post.setHeader("Host", host);
+					post.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+					post.setHeader("Accept-Language", "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
+					post.setHeader("Accept-Encoding", "gzip, deflate");
+					post.setHeader("Cookie", "Hm_lvt_96e300ac751ea8e740710f93edc83f12=1462385319,1462448006; yunsuo_session_verify=06423723aae9efc9f335c007d1d3fbe6; Webapi_LoginOn=cwNWsuPAU43s6mgIz3fipaYth+Var+ecQEKrDz8NCR/jQyXfhRQjliVMNUe8MM9Lpy13TwiuWCiOhMcMUGxrVIGcE60KwGkjUTJvWsS+DPjDuylMi7/mm9gM4lFSbvY6tUzSFFlHsuJXMBwfSPP/MivoStmz8iPlZAcSZyxSse4hY8YRiaTTzS9bZd19tfSKdsv5avG+XgUYJ6hySAJcPMK81SQl2XykjYaEW4+03RLHYYNKiXKi2oC9Pea71tM6XlmnS6so4vashNIEB95Aplc/9BKYBAt7LhC7An68P+Qh1x6j9TjmGcv85ym6dUQ8VDbXd7ltDGxAKlhY9P9v7qJ8uveybfa+1QJphrPPpNHYN9Pebr0afCMmc2H/LCQqfpm1WPHejdJZiIAINtg5nynxl/ByX4t1HJhR141wVLO5M3ZLMrthpdZ5ziLMjJPv3487SmicrssFo7a0a9W/4C5aguWI9BDtQVRD0woVQRESmh/R/qYk5b3KhEw7N+VllS3qxn04E3KfR7ZxFScWrxrun2MNeY++wYSxDU6tzbrDnshZy4JG3h9bQMu0EjlKL1tl3X219Iopr7fmaJJ9anRQ+EJXj7/9BjsRafkERUVwwQ5QXTkpKNVU+q1ihCNOYhXbp3fZFdMWtQaDI60vGUKyYNEUDC+VrnbddHQ4MhBfBWQxMv572scsVt8vVOj314Wci1uepcPtSpnVZnzX0YFno/+RI2GQH+R2KuvzygtkBxJnLFKx7vAGQwZ+iik9tc7BJKzFjmSdF6wI5lgwkySMpaXpS7NKdcuy0Rg5U6DB64AYS1HUWTOIZu7WsAmuysfbBnWds42Sx12jypwy7J0UCHNWOIlPne7TYilLVA14dR7QgPrDxw3757r3WQXiCOBZfM84NBreQIj+UDwb0ZKbavRBx/uLR374D1yJVhdi6Wqu7Z0F5q9s5mOPI1hSMUe7BNghqTow7Mgw5S9qp+r9jpOPK14lPxtPDcrbYqQoQYFJkdOGZGQHEmcsUrHu6Szuv3Z9nClvatXG9drJuqJXJV19a8mN/FmAGLA4uuuUHWvnbuBOByn9ItO9LNqEY37+bNJC/fZRXIVSibodW3B0xn5N5cD97YnwCJZiUiuMeBeMtsP/BBtGBH0vMG7mqME+0bTrUfo=; Webapi_LoginOn_client=%7b%0d%0a%20%20%22userName%22%3a%20%2215101006612%22%2c%0d%0a%20%20%22phoneNum%22%3a%20%2215101006612%22%2c%0d%0a%20%20%22nickName%22%3a%20%22%e7%94%a8%e6%88%b7_8201%22%2c%0d%0a%20%20%22Id%22%3a%20%22724229%22%2c%0d%0a%20%20%22os%22%3a%20null%2c%0d%0a%20%20%22email%22%3a%20null%2c%0d%0a%20%20%22password%22%3a%20null%2c%0d%0a%20%20%22passwordmd5%22%3a%20%22d3437992cbb0580066e4f2a5d4a57b2c%22%2c%0d%0a%20%20%22authemail%22%3a%20null%2c%0d%0a%20%20%22xxzh%22%3a%20%2251660038%22%2c%0d%0a%20%20%22jgid%22%3a%20%22117001%22%2c%0d%0a%20%20%22webapiurl%22%3a%20null%2c%0d%0a%20%20%22xybh%22%3a%20%221170316820%22%2c%0d%0a%20%20%22sfzh%22%3a%20%22412828199804204236%22%2c%0d%0a%20%20%22jxcode%22%3a%20%22110108035%22%2c%0d%0a%20%20%22schoolpwd%22%3a%20%2219980420%22%2c%0d%0a%20%20%22iconpath%22%3a%20null%2c%0d%0a%20%20%22username%22%3a%20%2215101006612%22%2c%0d%0a%20%20%22phonenum%22%3a%20%2215101006612%22%2c%0d%0a%20%20%22nickname%22%3a%20%22%e7%94%a8%e6%88%b7_8201%22%2c%0d%0a%20%20%22qquid%22%3a%20null%2c%0d%0a%20%20%22sinauid%22%3a%20null%2c%0d%0a%20%20%22apiurl%22%3a%20%22bookingcarapi%3a%3ahttp%3a%2f%2flongquanapi.xuechebu.com%22%2c%0d%0a%20%20%22apiurlios%22%3a%20%22https%3a%2f%2flongquanapi.xuechebu.com%22%2c%0d%0a%20%20%22jxmc%22%3a%20%22%e9%be%99%e6%b3%89%e9%a9%be%e6%a0%a1%22%2c%0d%0a%20%20%22xm%22%3a%20%22%e6%9d%8e%e9%9d%92%e6%99%93%22%2c%0d%0a%20%20%22usertype%22%3a%20%221%22%2c%0d%0a%20%20%22clientCode%22%3a%20null%2c%0d%0a%20%20%22dz%22%3a%20null%2c%0d%0a%20%20%22SQCX%22%3a%20%22C1%22%2c%0d%0a%20%20%22SSBX%22%3a%20%22%e5%b9%b3%e6%97%a5%e7%8f%ad%22%2c%0d%0a%20%20%22BackgroundImage%22%3a%20%22%22%2c%0d%0a%20%20%22HandImage%22%3a%20%22%22%0d%0a%7d; JX_LoginOn=tHuIebKocq4joXX/W+I7WVeWlp1AD5vaMboCCJ16XDY6SCTR5z3H1qoCerXsZCuWqJ1DaxQtJ/+sDbNWMGtE3A7xgeioKBwv8M/+7iZdBjRinklVWc2MK3zx2aULiPmH6s97dpDf5FVECQanmf9YxaZPTQotCXVN0evf0sMEsssjtDYdIWsdb2jcZP1kvfqMcderfZ16oblkZERN+TXb35JcZSct4jujIZoKauiHj+wov8GuuFpEZMiXFB+ha42yjdZNIiyxAAnShhZseZJgK0tFJkzL2X++kkHaGshi1xTHuVi7BPRWtaI2R8vrTXTNlxcpUIB7XUrEeVmw97NGCokxrPgkkDKcQjJe73KQtSfuRSfkzqOQhg0h+z54reIS29iTqXMXfvhqH6KxMVr9iQ==");
+					post.setHeader("Connection", "keep-alive");
+					post.setHeader("Cache-Control", "max-age=0");
+					post.setHeader("Referer", request_url);
+/* 153:    */       try
+/* 154:    */       {
+//										Header[] h = post.getAllHeaders();
+//										for (int i=0;i<h.length;i++) {
+//											System.out.println("#######################################");
+//											System.out.println(h[i].getName() + "    " + h[i].getValue());
+//											System.out.println("#######################################");
+//										}
+/* 156:173 */         this.httpclient.setRedirectStrategy(new DefaultRedirectStrategy()
+/* 157:    */         {
+/* 158:    */           public boolean isRedirected(HttpRequest request, HttpResponse response, HttpContext context)
+/* 159:    */           {
+/* 160:175 */             boolean isRedirect = false;
+/* 161:    */             try
+/* 162:    */             {
+/* 163:177 */               isRedirect = super.isRedirected(request, response, context);
+/* 164:    */             }
+/* 165:    */             catch (ProtocolException e)
+/* 166:    */             {
+/* 167:179 */               SentClient.this.log.error(e, e);
+/* 168:    */             }
+/* 169:181 */             if (!isRedirect)
+/* 170:    */             {
+/* 171:182 */               int responseCode = response.getStatusLine().getStatusCode();
+/* 172:183 */               if ((responseCode == 301) || (responseCode == 302)) {
+/* 173:184 */                 return true;
+/* 174:    */               }
+/* 175:    */             }
+/* 176:187 */             return isRedirect;
+/* 177:    */           }
+/* 178:189 */         });
+/* 179:190 */         responseBody = (String)this.httpclient.execute(post, responseHandler);
+/* 180:191 */         ans = Util.removeTagFromHtml(responseBody);
+///* 181:193 */         if ((ans != null) && (ans.indexOf("提交订单") > 0))
+///* 182:    */         {
+///* 183:194 */           rs.setCode("100");
+///* 184:195 */           rs.setMsg("");
+///* 185:    */         }
+///* 186:196 */         else if (responseBody.indexOf("目前您还有未处理的订单") > 0)
+///* 187:    */         {
+///* 188:197 */           rs.setCode("12");
+///* 189:198 */           rs.setMsg("目前您还有未处理的订单，还不快去支付!");
+///* 190:    */         }
+///* 191:    */         else
+///* 192:    */         {
+///* 193:200 */           rs.setMsg(ans);
+///* 194:    */         }
+/* 195:    */       }
+/* 196:    */       catch (Exception e)
+/* 197:    */       {
+/* 198:203 */         this.log.error(e, e);
+/* 199:    */       }
+/* 210:216 */       this.log.debug("-------------------book end-------------------");
+/* 211:    */     }
+/* 212:    */     catch (Exception e)
+/* 213:    */     {
+/* 214:206 */       this.log.error(e, e);
+/* 215:    */     }
+/* 229:217 */     return ans;
+/* 230:    */   }
+				
+				public String addPosts(String imei, String classifyid, String imgsOss, String content, String jxFlag)
+/* 115:    */   {
+/* 116:135 */     this.log.debug("-------------------addPosts start-------------------");
+///* 117:136 */     Result rs = new Result();
+				  String request_url = "http://xcbapi.xuechebu.com/bbsapi/Posts/AddPosts";
+/* 118:137 */     HttpPost post = new HttpPost(request_url);
+/* 119:138 */     List<NameValuePair> formparams = new ArrayList<NameValuePair>();
+				  formparams.add(new BasicNameValuePair("osversion", "6.0"));
+				  formparams.add(new BasicNameValuePair("CLASSIFYID", classifyid));
+				  formparams.add(new BasicNameValuePair("ossdk", "23"));
+				  formparams.add(new BasicNameValuePair("imei", imei));
+				  formparams.add(new BasicNameValuePair("appversion", "3.9.2"));
+				  formparams.add(new BasicNameValuePair("version", "3.9.2"));
+				  formparams.add(new BasicNameValuePair("imgs", ""));
+				  formparams.add(new BasicNameValuePair("ImgsOss", imgsOss));
+				  formparams.add(new BasicNameValuePair("ipaddress", "61.252.17.5"));
+				  formparams.add(new BasicNameValuePair("os", "an"));
+				  formparams.add(new BasicNameValuePair("ORIGIN", "0"));
+				  formparams.add(new BasicNameValuePair("CONTENT", content));
+/* 147:    */     String ans = null;
+				  try
+/* 148:    */     {
+/* 149:167 */       UrlEncodedFormEntity uef = new UrlEncodedFormEntity(formparams, "UTF-8");
+/* 150:168 */       post.setEntity(uef);
+/* 151:169 */       ResponseHandler<String> responseHandler = new BasicResponseHandler();
+/* 152:170 */       String responseBody = null;
+					post.setHeader("User-Agent", "android_xuechebu;v3.9.2;phone:NCE-AL10:6.0;");
+					post.setHeader("Host", "xcbapi.xuechebu.com");
+					post.setHeader("Content-Type", "application/x-www-form-urlencoded");
+					post.setHeader("Accept-Language", "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
+					post.setHeader("Accept-Encoding", "gzip");
+					post.setHeader("Connection", "keep-alive");
+/* 153:    */       try
+/* 154:    */       {
+/* 156:173 */         this.httpclient.setRedirectStrategy(new DefaultRedirectStrategy()
+/* 157:    */         {
+/* 158:    */           public boolean isRedirected(HttpRequest request, HttpResponse response, HttpContext context)
+/* 159:    */           {
+/* 160:175 */             boolean isRedirect = false;
+/* 161:    */             try
+/* 162:    */             {
+/* 163:177 */               isRedirect = super.isRedirected(request, response, context);
+/* 164:    */             }
+/* 165:    */             catch (ProtocolException e)
+/* 166:    */             {
+/* 167:179 */               SentClient.this.log.error(e, e);
+/* 168:    */             }
+/* 169:181 */             if (!isRedirect)
+/* 170:    */             {
+/* 171:182 */               int responseCode = response.getStatusLine().getStatusCode();
+/* 172:183 */               if ((responseCode == 301) || (responseCode == 302)) {
+/* 173:184 */                 return true;
+/* 174:    */               }
+/* 175:    */             }
+/* 176:187 */             return isRedirect;
+/* 177:    */           }
+/* 178:189 */         });
+/* 179:190 */         responseBody = (String)this.httpclient.execute(post, responseHandler);
+/* 180:191 */         ans = Util.removeTagFromHtml(responseBody);
+/* 195:    */       }
+/* 196:    */       catch (Exception e)
+/* 197:    */       {
+/* 198:203 */         this.log.error(e, e);
+/* 199:    */       }
+/* 210:216 */       this.log.debug("-------------------addPosts end-------------------");
+/* 211:    */     }
+/* 212:    */     catch (Exception e)
+/* 213:    */     {
+/* 214:206 */       this.log.error(e, e);
+/* 215:    */     }
+/* 229:217 */     return ans;
+/* 230:    */   }
+				
 				public String getStudentInfo(String xxzh, String jxFlag)
 /* 115:    */   {
 /* 116:135 */     this.log.debug("-------------------book start-------------------");
@@ -430,10 +716,10 @@ import com.rails.ecommerce.admin.api.Util;
 /* 119:138 */     List<NameValuePair> formparams = new ArrayList<NameValuePair>();
 /* 120:139 */     formparams.add(new BasicNameValuePair("params", params));
 				  formparams.add(new BasicNameValuePair("xxzh", xxzh));
-				  formparams.add(new BasicNameValuePair("xxzh", xxzh));
-				  formparams.add(new BasicNameValuePair("jlcbh", jlcbh));
-				  formparams.add(new BasicNameValuePair("yyrq", yyrq));
-				  formparams.add(new BasicNameValuePair("xnsd", xnsd));
+//				  formparams.add(new BasicNameValuePair("xxzh", xxzh));
+//				  formparams.add(new BasicNameValuePair("jlcbh", jlcbh));
+//				  formparams.add(new BasicNameValuePair("yyrq", yyrq));
+//				  formparams.add(new BasicNameValuePair("xnsd", xnsd));
 /* 147:    */     String ans = null;  
 				  try
 /* 148:    */     {
@@ -666,31 +952,6 @@ import com.rails.ecommerce.admin.api.Util;
 /* 118:137 */     HttpPost post = new HttpPost(Constants.USERINFO_URL);
 /* 119:138 */     List<NameValuePair> formparams = new ArrayList<NameValuePair>();
 /* 120:139 */     formparams.add(new BasicNameValuePair("username", jcy_count));
-///* 121:140 */     formparams.add(new BasicNameValuePair("station_train_code", train.getTrainNo()));
-///* 122:141 */     formparams.add(new BasicNameValuePair("train_date", startDate));
-///* 123:142 */     formparams.add(new BasicNameValuePair("seattype_num", ""));
-///* 124:143 */     formparams.add(new BasicNameValuePair("from_station_telecode", train.getFromStationCode()));
-///* 125:144 */     formparams.add(new BasicNameValuePair("to_station_telecode", train.getToStationCode()));
-///* 126:145 */     formparams.add(new BasicNameValuePair("include_student", "00"));
-///* 127:146 */     formparams.add(new BasicNameValuePair("from_station_telecode_name", train.getFromStation()));
-///* 128:147 */     formparams.add(new BasicNameValuePair("to_station_telecode_name", train.getToStation()));
-///* 129:148 */     formparams.add(new BasicNameValuePair("round_train_date", startDate));
-///* 130:149 */     formparams.add(new BasicNameValuePair("round_start_time_str", rangDate));
-///* 131:150 */     formparams.add(new BasicNameValuePair("single_round_type", "1"));
-///* 132:151 */     formparams.add(new BasicNameValuePair("train_pass_type", "QB"));
-///* 133:152 */     formparams.add(new BasicNameValuePair("train_class_arr", "QB#D#Z#T#K#QT#"));
-///* 134:153 */     formparams.add(new BasicNameValuePair("start_time_str", rangDate));
-///* 135:154 */     formparams.add(new BasicNameValuePair("lishi", train.getTakeTime()));
-///* 136:155 */     formparams.add(new BasicNameValuePair("train_start_time", train.getStartTime()));
-///* 137:156 */     formparams.add(new BasicNameValuePair("trainno4", train.getTrainCode()));
-///* 138:157 */     formparams.add(new BasicNameValuePair("arrive_time", train.getEndTime()));
-///* 139:158 */     formparams.add(new BasicNameValuePair("from_station_name", train.getFromStation()));
-///* 140:159 */     formparams.add(new BasicNameValuePair("to_station_name", train.getToStation()));
-///* 141:160 */     formparams.add(new BasicNameValuePair("from_station_no", train.getFromStationNo()));
-///* 142:161 */     formparams.add(new BasicNameValuePair("to_station_no", train.getToStationNo()));
-///* 143:162 */     formparams.add(new BasicNameValuePair("ypInfoDetail", train.getYpInfo()));
-///* 144:163 */     formparams.add(new BasicNameValuePair("mmStr", train.getMmStr()));
-///* 145:164 */     formparams.add(new BasicNameValuePair("locationCode", train.getLocationCode()));
 /* 147:    */     String ans = null;  
 				  try
 /* 148:    */     {
@@ -701,7 +962,7 @@ import com.rails.ecommerce.admin.api.Util;
 					
 /* 153:    */       try
 /* 154:    */       {
-/* 155:172 */         post.setHeader("Referer", "http://115.28.226.254:8008/User/GetUserInfoByUserId");
+/* 155:172 */         post.setHeader("Referer", "http://api.xuechebu.com/User/GetUserInfoByUserId");
 /* 156:173 */         this.httpclient.setRedirectStrategy(new DefaultRedirectStrategy()
 /* 157:    */         {
 /* 158:    */           public boolean isRedirected(HttpRequest request, HttpResponse response, HttpContext context)

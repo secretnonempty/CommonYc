@@ -15,8 +15,6 @@
 			<groupId>com.rails</groupId>
 			<artifactId>core</artifactId>
 		</dependency>
-		
-
 	</dependencies>
 	<build>
    		 <finalName>admin</finalName>
@@ -28,7 +26,7 @@
             <source>1.6</source>    
             <target>1.6</target>    
         </configuration>    
-        </plugin>  
+        </plugin>
       </plugins>  
 	</build>
 </project>

@@ -1,7 +1,5 @@
 package com.rails.ecommerce.admin.api.bean;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 public class JsonTest {

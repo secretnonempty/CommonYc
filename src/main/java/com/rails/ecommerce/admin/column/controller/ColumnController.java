@@ -26,10 +26,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.rails.ecommerce.admin.utils.FileUtils;
@@ -38,9 +35,7 @@ import com.rails.ecommerce.core.column.domain.Colume;
 import com.rails.ecommerce.core.column.service.ColumeService;
 import com.rails.ecommerce.core.common.domain.PaginationList;
 import com.rails.ecommerce.core.common.domain.TreeList;
-import com.rails.ecommerce.core.goodsinfo.service.GoodsInfoService;
 import com.rails.ecommerce.core.publishgoods.service.PublishGoodsService;
-import com.rails.ecommerce.core.templet.domain.TempletList;
 
 /**
  * 

@@ -1,19 +1,11 @@
 package com.rails.ecommerce.admin.common.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.session.Session;
-import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.rails.ecommerce.admin.webservice.client.ClientImpl;
-import com.rails.ecommerce.core.common.domain.Organization;
-import com.rails.ecommerce.core.common.domain.SystemMenu;
 import com.rails.ecommerce.core.common.domain.TreeNodeList;
 
 @Controller

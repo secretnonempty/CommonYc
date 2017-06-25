@@ -16,7 +16,15 @@
 				<tr>
 					<td style="text-align : right;">卡号:</td>
 					<td>
-						<input class="easyui-textbox" style="width:110px;" id="cardNo" name="cardNo" data-options="validType:['length[8,8]']"></input>
+						<input class="easyui-textbox" style="width: 160px" id="cardNo" name="cardNo" data-options="validType:['length[8,18]']"></input>
+					</td>
+					<td style="text-align : right;">密码:</td>
+					<td>
+						<input class="easyui-textbox" style="width: 120px" id="pwd" name="pwd" value=""></input>
+					</td>
+					<td style="text-align : right;">车号:</td>
+					<td>
+						<input class="easyui-textbox" style="width: 60px" id="cnbh" name="cnbh" value=""></input>
 					</td>
 					<td style="text-align : right;">&nbsp;&nbsp;驾校:</td>
 					<td>
@@ -27,6 +35,9 @@
 						    <option value="4">海驾</option>
 						    <option value="5">新丰</option>
 						    <option value="6">远大</option>
+						    <option value="7">丰顺</option>
+						    <option value="8">长建</option>
+						    <option value="9">老山</option>
 						</select>
 					</td>
 					<td style="text-align : right;">班种:</td>
@@ -37,7 +48,7 @@
 						    <option value="1">平日</option>
 						</select>
 					</td>
-					<td style="text-align : right;">阶段:</td>
+					<!-- <td style="text-align : right;">阶段:</td>
 					<td>
 						<select class="easyui-combobox" id="status_name" name="status_name" data-options="required:true" >
 							<option value="" selected="selected">请选择</option>
@@ -46,11 +57,13 @@
 						    <option value="4">科目四</option>
 						    <option value="6">毕业</option>
 						</select>
-					</td>
+					</td> -->
 					<td>
 						<div style="text-align:center;padding:5px">
-							<input class="easyui-textbox" style="width:110px;" id="temp" name="temp"></input>
-							<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" id="queryBtn">查询</a>
+							<!--  <input class="easyui-textbox" style="width:110px;" id="temp" name="temp"></input> -->
+							<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" id="queryBtn">查询</a>&nbsp;&nbsp;
+							<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" id="checkBtn">检测</a>&nbsp;&nbsp;
+							<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" id="adverBtn">广告</a>&nbsp;&nbsp;
 							<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" id="deleteBtn">删除</a>
 						</div>
 					</td>
@@ -102,6 +115,10 @@
 				<tr>
 					<td style="text-align:right">QQ:</td>
 					<td><input class="easyui-textbox" type="text" id="qq" name="qq" data-options="validType:['length[0,100]']" ></input></td>
+				</tr>
+				<tr>
+					<td style="text-align:right">身份证:</td>
+					<td><input class="easyui-textbox" type="text" id="stIdcard" name="stIdcard" data-options="validType:['length[0,100]']" style="width:200px;"></input></td>
 				</tr>
 				<tr>
 					<td style="text-align:right">备注:</td>
